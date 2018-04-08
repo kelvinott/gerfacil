@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+    <h4>Pesquise pelo CEP: <input type="text" id="cep"><br></h4>
+    <button onclick="redirecionarCEP()">Enviar</button>
+    <div id="map"></div>
+    <script type="text/javascript" src="../lib/jquery/jquery.min.js"></script>
+    <script>
+      function initMap(latitude, longitude) {
+        var posicao = {lat: latitude, lng: longitude};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 11,
+          center: posicao
+        });
+        var marker = new google.maps.Marker({
+          position: posicao,
+          map: map
+        });
+      }
+
+      function redirecionarCEP(){
+        var cep = $("#cep").val();
+        var url_geocode = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + cep + '&key=AIzaSyAK7x4MCnSGCqjLtaXt03BvAxLqPW-trVQ';
+        //abre uma nova aba com o json do geocode
+        //window.open(url_geocode,'_blank');
+
+        $.getJSON(url_geocode, function (data) {
+        //console.log("Latitude:" + data.results[0].geometry.location.lat);
+        //console.log("Longitude:" + data.results[0].geometry.location.lng);
+        var latitude = data.results[0].geometry.location.lat;
+        var longitude = data.results[0].geometry.location.lng;
+
+        initMap(latitude, longitude);
+
+      }); 
+      }
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAK7x4MCnSGCqjLtaXt03BvAxLqPW-trVQ&callback=initMap">
+    </script>
+  </body>
+</html>
