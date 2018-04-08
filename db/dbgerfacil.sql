@@ -34,7 +34,10 @@ CREATE TABLE IF NOT EXISTS `tbatividades` (
   KEY `tbAtividades_FKIndex2` (`cdUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela dbgerfacil.tbatividades: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `tbatividades` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbatividades` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela dbgerfacil.tbavaliacoes
 DROP TABLE IF EXISTS `tbavaliacoes`;
 CREATE TABLE IF NOT EXISTS `tbavaliacoes` (
@@ -49,7 +52,10 @@ CREATE TABLE IF NOT EXISTS `tbavaliacoes` (
   KEY `tbAvaliacoes_FKIndex2` (`cdEvento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela dbgerfacil.tbavaliacoes: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `tbavaliacoes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbavaliacoes` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela dbgerfacil.tbcidades
 DROP TABLE IF EXISTS `tbcidades`;
 CREATE TABLE IF NOT EXISTS `tbcidades` (
@@ -59,7 +65,12 @@ CREATE TABLE IF NOT EXISTS `tbcidades` (
   PRIMARY KEY (`cdCidade`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela dbgerfacil.tbcidades: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `tbcidades` DISABLE KEYS */;
+INSERT INTO `tbcidades` (`cdCidade`, `nmCidade`, `cdEstado`) VALUES
+	(1, 'Pomerode', 1);
+/*!40000 ALTER TABLE `tbcidades` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela dbgerfacil.tbcomentarios
 DROP TABLE IF EXISTS `tbcomentarios`;
 CREATE TABLE IF NOT EXISTS `tbcomentarios` (
@@ -75,7 +86,10 @@ CREATE TABLE IF NOT EXISTS `tbcomentarios` (
   KEY `tbComentarios_FKIndex2` (`cdEvento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela dbgerfacil.tbcomentarios: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `tbcomentarios` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbcomentarios` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela dbgerfacil.tbestado
 DROP TABLE IF EXISTS `tbestado`;
 CREATE TABLE IF NOT EXISTS `tbestado` (
@@ -84,7 +98,12 @@ CREATE TABLE IF NOT EXISTS `tbestado` (
   PRIMARY KEY (`cdEstado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela dbgerfacil.tbestado: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `tbestado` DISABLE KEYS */;
+INSERT INTO `tbestado` (`cdEstado`, `nmEstado`) VALUES
+	(1, 'Santa Catarina');
+/*!40000 ALTER TABLE `tbestado` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela dbgerfacil.tbeventos
 DROP TABLE IF EXISTS `tbeventos`;
 CREATE TABLE IF NOT EXISTS `tbeventos` (
@@ -112,7 +131,10 @@ CREATE TABLE IF NOT EXISTS `tbeventos` (
   KEY `tbEventos_FKIndex4` (`cdEstado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela dbgerfacil.tbeventos: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `tbeventos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbeventos` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela dbgerfacil.tbperfis
 DROP TABLE IF EXISTS `tbperfis`;
 CREATE TABLE IF NOT EXISTS `tbperfis` (
@@ -123,7 +145,10 @@ CREATE TABLE IF NOT EXISTS `tbperfis` (
   PRIMARY KEY (`cdPerfil`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela dbgerfacil.tbperfis: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `tbperfis` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbperfis` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela dbgerfacil.tbusuarios
 DROP TABLE IF EXISTS `tbusuarios`;
 CREATE TABLE IF NOT EXISTS `tbusuarios` (
@@ -142,7 +167,28 @@ CREATE TABLE IF NOT EXISTS `tbusuarios` (
   KEY `tbUsuarios_FKIndex4` (`cdEstado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela dbgerfacil.tbusuarios: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `tbusuarios` DISABLE KEYS */;
+INSERT INTO `tbusuarios` (`cdUsuario`, `cdEstado`, `cdCidade`, `dsLogin`, `dsEmail`, `dsSenha`, `dtNascimento`, `dsNome`, `dsSobrenome`, `idAtivo`) VALUES
+	(1, 1, 1, 'teste', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', 1),
+	(2, 1, 1, '', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL),
+	(3, 1, 1, '', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL),
+	(4, 1, 1, '', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL),
+	(5, 1, 1, '', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL),
+	(6, 1, 1, '', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL),
+	(7, 1, 1, '', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL),
+	(8, 1, 1, '', 'teste@teste.com', 'sk8sk8', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL),
+	(9, 1, 1, '', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL),
+	(10, 1, 1, '', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL),
+	(11, 1, 1, '', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL),
+	(12, 1, 1, '', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL),
+	(13, 1, 1, '', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL),
+	(14, 1, 1, '', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL),
+	(15, 1, 1, '', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL),
+	(16, 1, 1, '', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL),
+	(17, 1, 1, '', 'teste@teste.com', 'teste', '2012-07-09', 'Kelvinnnnnnnnnnnnnnnnnnnnnnnn', 'Ott', NULL);
+/*!40000 ALTER TABLE `tbusuarios` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela dbgerfacil.tbusuariosfacebook
 DROP TABLE IF EXISTS `tbusuariosfacebook`;
 CREATE TABLE IF NOT EXISTS `tbusuariosfacebook` (
@@ -153,7 +199,10 @@ CREATE TABLE IF NOT EXISTS `tbusuariosfacebook` (
   KEY `tbUsuariosFacebook_FKIndex1` (`cdUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela dbgerfacil.tbusuariosfacebook: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `tbusuariosfacebook` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbusuariosfacebook` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela dbgerfacil.tbusuarios_tbeventos
 DROP TABLE IF EXISTS `tbusuarios_tbeventos`;
 CREATE TABLE IF NOT EXISTS `tbusuarios_tbeventos` (
@@ -166,7 +215,10 @@ CREATE TABLE IF NOT EXISTS `tbusuarios_tbeventos` (
   KEY `tbUsuarios_has_tbEventos_FKIndex3` (`tbPerfis_cdPerfil`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Exportação de dados foi desmarcado.
+-- Copiando dados para a tabela dbgerfacil.tbusuarios_tbeventos: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `tbusuarios_tbeventos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tbusuarios_tbeventos` ENABLE KEYS */;
+
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
