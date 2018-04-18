@@ -1,6 +1,7 @@
 <?php
 
 require_once("../../estrutura/conexao.php");
+require_once("../../estrutura/conf_email.php");
 
 class EsqueceuSenhaPersistencia{
 	protected $model;
@@ -27,17 +28,25 @@ class EsqueceuSenhaPersistencia{
 
 	public function Atualizar(){
 		$this->getConexao()->conectaBanco();
-
-        $email = $this->getModel()->getEmail();		
-        $usuario = $this->getModel()->getUsuario();
+		
+		
+		//Paramêtros e e-mail
+		$emailUsuario = 'kelvinott3112@gmail.com';
+		$dsSenha = str_shuffle('1a2b3h4k5l');
+		$mensagem = "Sua senha foi alterada, nova senha: " . $dsSenha;
+		$assunto = "Alteração de senha";
+        $email = $this->getModel()->getEmail();		        
 		
 		$sSql = "UPDATE tbusuarios usu
-                    SET usu.dsSenha = 'teste'
-                WHERE usu.cdUsuario = " . $usuario;
+                    SET usu.dsSenha = '". $dsSenha . 
+                "' WHERE usu.dsEmail = '" . $email . "'";
 
 		$this->getConexao()->query($sSql);
 
 		$this->getConexao()->fechaConexao();
+
+		$objemail = new Email();
+      	$objemail->enviaEmail($email,$mensagem,$assunto,$emailUsuario,null);
 
 	}
 

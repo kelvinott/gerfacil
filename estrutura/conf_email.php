@@ -6,10 +6,10 @@ class Email{
   private $senha;
 
   public function __construct() {
-    $this->remetente    = 'projetoratsis@gmail.com';
+    $this->remetente    = 'kelvinott3112@gmail.com';
     $this->host = 'smtp.gmail.com';
     $this->porta   = '587';
-    $this->senha   = 'projetorat123';
+    $this->senha   = 'silvafilmes3';
     $this->smtp   = 'tls';
   }
 
@@ -17,7 +17,7 @@ class Email{
     global $error;
 
     //require_once("../../lib/PHPMailer/PHPMailerAutoload.php");
-    require_once('C:/xampp/htdocs/projetorat/trunk/lib/PHPMailer/PHPMailerAutoload.php');
+    require_once('C:/xampp/htdocs/gerfacil/trunk/lib/PHPMailer/PHPMailerAutoload.php');
 
     define('GUSER', $this->remetente);	// <-- Insira aqui o seu GMail
     define('GPWD', $this->senha);		// <-- Insira aqui a senha do seu GMail

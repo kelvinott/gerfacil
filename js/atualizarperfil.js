@@ -35,26 +35,11 @@ $(document).ready(function() {
   
             //Se der tudo ok no envio...
             success: function (dados) {
-              $("#txbEmail").val("");
-              $("#txbNome").val("");
-              $("#txbSobrenome").val("");              
-              $("#txbNascimento").val("");
-              $("#txbEstado").val("");
-              $("#txbCidade").val("");
               jbkrAlert.sucesso('Conta', 'Conta atualizada com sucesso!');
             }
         });
   
-        $.ajax({
-              //Tipo de envio POST ou GET
-              type: "POST",
-              dataType: "text",
-              url: "../view/LoginView.php",
-              //Se der tudo ok no envio...
-              success: function (callback) {
-                $("#divPrincipal").html(callback);
-              }
-            });	
+        
         
     
       });
@@ -100,38 +85,38 @@ $(document).ready(function() {
     
   }
 
-  function buscarUsuario(){
+function buscarUsuario(){
     
-    $.ajax({
-        //Tipo de envio POST ou GET
-        type: "POST",
-        dataType: "text",
-        data: {          
-          action: "buscar"
-        },
-  
-        url: "../controller/AtualizarPerfilController.php",
-  
-        //Se der tudo ok no envio...
-        success: function (dados) {
-            var json = $.parseJSON(dados);
-            var usuario = null;
-  
-            var grid = "";
-            for (var i = 0; i < json.length; i++) {
-                usuario = json[i];
+  $.ajax({
+      //Tipo de envio POST ou GET
+      type: "POST",
+      dataType: "text",
+      data: {          
+        action: "buscar"
+      },
 
-                $("#txbEmail").val(usuario.dsEmail);
-                $("#txbNome").val(usuario.dsNome);
-                $("#txbSobrenome").val(usuario.dsSobrenome);
-                $("#txbNascimento").val(usuario.dtNascimento);
-                $("#txbEstado").val(usuario.cdEstado);
-                $("#txbCidade").val(usuario.cdCidade);                
-  
-            } 
-  
-        }
-      });
+      url: "../controller/AtualizarPerfilController.php",
+
+      //Se der tudo ok no envio...
+      success: function (dados) {
+          var json = $.parseJSON(dados);
+          var usuario = null;
+
+          var grid = "";
+          for (var i = 0; i < json.length; i++) {
+              usuario = json[i];
+
+              $("#txbEmail").val(usuario.dsEmail);
+              $("#txbNome").val(usuario.dsNome);
+              $("#txbSobrenome").val(usuario.dsSobrenome);
+              $("#txbNascimento").val(usuario.dtNascimento);
+              $("#txbEstado").val(usuario.cdEstado);
+              $("#txbCidade").val(usuario.cdCidade);                
+
+          } 
+
+      }
+    });
 }
      /* $("#formUsuario #btnCancelar").click(function(){
         limpaCampos($(this).closest("form"));

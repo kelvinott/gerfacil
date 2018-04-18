@@ -7,10 +7,9 @@ require_once("../persistencia/EsqueceuSenhaPersistencia.php");
 switch($_POST["action"]){
 	
 	case 'atualizar':
-		$model = new UsuarioModel();
+		$model = new EsqueceuSenhaModel();
 
-		$model->setUsuario($_SESSION["cdUsuario"]);
-		$model->setEmail($_POST["dsEmail"]);		
+		$model->setEmail($_POST["email"]);		
 		
 		$persistencia = new EsqueceuSenhaPersistencia();
 

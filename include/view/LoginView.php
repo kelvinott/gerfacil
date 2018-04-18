@@ -55,13 +55,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div id="divErroSenhaPrincipal" class="col-md-3" style="display:none;">
                     <div class="form-control-feedback">
                         <span class="text-danger align-middle">
-                        <!-- Put password error message here -->    
+                            <i class="fa fa-close"></i> <span id="divErroSenha"></span>
                         </span>
                     </div>
-                </div>
+                </div>                
             </div>
             <!--<div class="row">
                 <div class="col-md-3"></div>

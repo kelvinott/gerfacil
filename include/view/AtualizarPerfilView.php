@@ -89,6 +89,7 @@
                         <select id="txbCidade" name="txbCidade" class="form-control" required>
                             <option value="" disabled selected>Cidade</option>
                             <option value="1">Pomerode</option>
+                            <option value="2">Blumenau</option>
                         </select>
                         </div>
                     </div>

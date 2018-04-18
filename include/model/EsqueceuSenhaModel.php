@@ -2,19 +2,11 @@
 
 class EsqueceuSenhaModel {
 
-    private $usuario;
-    private $email;	
-    
-    public function setUsuario($usuario){
-		$this->usuario = $usuario;
-	}
+	private $usuario;
+	private $email;	
+	
 
-    public function getUsuario(){
-		return $this->usuario;
-	}
-    
-
-    public function setEmail($email){
+	public function setEmail($email){
 		$this->email = $email;
 	}
 

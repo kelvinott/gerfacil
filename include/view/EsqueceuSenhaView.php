@@ -43,7 +43,7 @@
             <div class="row" style="padding-top: 1rem; padding-bottom: 1rem;">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <button type="button" id="btnEnviar" class="btn btn-primary"> Nova Senha</button>                    
+                    <button type="button" id="btnEnviar"  class="btn btn-primary">Confirma E-mail</button>                    
                 </div>
             </div>
         </form>

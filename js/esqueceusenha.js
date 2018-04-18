@@ -21,7 +21,7 @@ $(document).ready(function(){
     
                     //Se der tudo ok no envio...
                     success: function (dados) {
-                      alert("ae");
+                        jbkrAlert.sucesso('E-mail', 'E-mail enviado com sucesso!');
                     }
             });
         }
@@ -41,8 +41,7 @@ function validaCamposLogin(){
     
     if(txbEmail == ""){
       mensagem = mensagem.concat("<i>Informe o <b>Email</b></i><br/>");
-    }
-    alert(mensagem);
+    }    
     return mensagem;
 }
   

@@ -50,12 +50,12 @@ class AtualizarPerfilModel {
 		return $this->estado;
     }
     
-    public function setCidade($estado){
-		$this->estado = $estado;
+    public function setCidade($cidade){
+		$this->cidade = $cidade;
 	}
 
 	public function getCidade(){
-		return $this->estado;
+		return $this->cidade;
     }
     
     public function setCodigo($codigo){

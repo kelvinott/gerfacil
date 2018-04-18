@@ -1,6 +1,5 @@
 $(document).ready(function(){
     $("#txbEmail").focus();
-
     
     $("#btnEsqueceuSenha").click(function(){
         $.ajax({
@@ -26,11 +25,10 @@ $(document).ready(function(){
     $("#btnLogin").click(function(){
         var txbEmail = $("#txbEmail").val();
         var txbSenha = $("#txbSenha").val();
-        var divErroPrincipal =  $("#divErroPrincipal");
-        var divErro =  $("#divErro");
-        var mensagem = validaCamposLogin();
+       
+        var flgerro = validaCamposLogin();
         
-        if(mensagem == "") {
+        if(flgerro == "") {
             $.ajax({
                     //Tipo de envio POST ou GET
                     type: "POST",
@@ -44,16 +42,21 @@ $(document).ready(function(){
                         
                         var json = $.parseJSON(dados);
 
-                        if (json.status != 1 || json.status != 2) {
-                                                      
+                        if (json.status != 1) {
+
                             $(location).attr('href', 'PaginaInicialView.php');                            
+                        } else {
+
+                            jbkrAlert.alerta('Login', 'E-mail ou Senha está incorreto.');
+
                         }
+
                     }
             });
         }
         else{
-            divErroPrincipal.css("display", "block");
-            divErro.html(mensagem);
+           
+            
         }
     });
   });
@@ -63,15 +66,24 @@ $(document).ready(function(){
   function validaCamposLogin(){
     var txbEmail = $("#txbEmail");
     var txbSenha = $("#txbSenha");
-  
-    var mensagem = "";
+    var divErroPrincipal =  $("#divErroPrincipal");
+    var divErro =  $("#divErro");
+
+    var divErroSenhaPrincipal =  $("#divErroSenhaPrincipal");
+    var divErroSenha =  $("#divErroSenha");
+    
+    var flgerro = "";
     if(txbEmail.val() == ""){
-      mensagem = mensagem.concat("<i>Informe o <b>Email</b></i><br/>");
+        divErro.html("<i>Informe o <b>Email</b></i><br/>");
+        divErroPrincipal.css("display", "block");
+        flgerro = "1";
     }
     if(txbSenha.val() == ""){
-      mensagem = mensagem.concat("<i>Informe a <b>Senha</b></i>");
+        divErroSenha.html("<i>Informe a <b>Senha</b></i>");
+        divErroSenhaPrincipal.css("display", "block");
+        flgerro = "1";
     }
   
-    return mensagem;
+    return flgerro;
   }
   
