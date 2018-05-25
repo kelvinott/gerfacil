@@ -21,7 +21,7 @@ class LoginPersistencia {
 	public function getConexao(){
 		return $this->conexao;
 	}
-
+	
 	public function validaLogin(){
 		$email = $this->getModel()->getEmail();
 		$senha = $this->getModel()->getSenha();
@@ -31,7 +31,8 @@ class LoginPersistencia {
                         ,usu.dsNome dsNome
                         ,usu.dsSobrenome dsSobrenome
                         ,usu.dsSenha dsSenha
-                        ,usu.dsEmail dsEmail
+						,usu.dsEmail dsEmail
+					    ,usu.idAlteraSenha idAlteraSenha
                     FROM tbusuarios usu
                    WHERE usu.dsEmail = '" . $email . "'" .
                    " AND usu.dsSenha = '" . $senha . "'";
@@ -44,6 +45,7 @@ class LoginPersistencia {
 			$_SESSION["dsSobrenome"] = $oDados->dsSobrenome;
 			$_SESSION["dsEmail"] = $oDados->dsEmail;
 			$logado = true;
+			
 		} else {
 			Session_destroy();
 
@@ -52,6 +54,25 @@ class LoginPersistencia {
 		$this->getConexao()->fechaConexao();
 
 		return $logado;
+	}
+
+	public function buscarIdAlteraSenha(){
+		$email = $this->getModel()->getEmail();
+		
+		$sSql = "SELECT usu.idAlteraSenha idAlteraSenha
+                    FROM tbusuarios usu                    
+                    WHERE upper(usu.dsEmail) = upper('" . $email . "')";
+        
+		$this->getConexao()->conectaBanco();
+
+		if( $oDados = $this->getConexao()->fetch_query($sSql) ) {
+			return $oDados->idAlteraSenha;
+			
+		} 
+
+		$this->getConexao()->fechaConexao();
+
+
 	}
 
 	public function criptografaSenha($senha){

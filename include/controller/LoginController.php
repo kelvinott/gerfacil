@@ -25,12 +25,16 @@ $oPersistencia->setModel($oModel);
 
 $bLogou = $oPersistencia->validaLogin();
 
+$idAlteraSenha = $oPersistencia->buscarIdAlteraSenha();
+
 if($bLogou){
- 
-    echo '{ "mensagem": "Login realizado com sucesso", "status" : "0" }';
- 
-}
-else{
+    if($idAlteraSenha == 1){
+        echo '{ "mensagem": "Atualizar Senha", "status" : "2" }';
+    } else {
+        echo '{ "mensagem": "Login realizado com sucesso", "status" : "0" }';
+    }
+
+} else{
     echo '{ "mensagem": "Usuário ou senha incorretos", "status" : "1" }';
 }
 

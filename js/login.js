@@ -42,13 +42,23 @@ $(document).ready(function(){
                         
                         var json = $.parseJSON(dados);
 
-                        if (json.status != 1) {
-
+                        if (json.status == 0) {
                             $(location).attr('href', 'PaginaInicialView.php');                            
-                        } else {
+                        } else if(json.status == 1){
 
                             jbkrAlert.alerta('Login', 'E-mail ou Senha está incorreto.');
 
+                        } else if(json.status == 2){
+                            $.ajax({
+                                //Tipo de envio POST ou GET
+                                type: "POST",
+                                dataType: "text",
+                                url: "../view/AtualizarSenhaView.php",
+                                //Se der tudo ok no envio...
+                                success: function (callback) {
+                                  $("#divPrincipal").html(callback);
+                                }
+                            });	  
                         }
 
                     }

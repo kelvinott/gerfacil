@@ -17,7 +17,7 @@ switch($_POST["action"]){
 
         $retorno = $persistencia->buscarUsuario();
 
-        echo $retorno;
+        echo $retorno;        
 
         break;
 	case 'atualizar':

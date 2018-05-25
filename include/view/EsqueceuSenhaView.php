@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <script type="text/javascript" src="../../js/esqueceusenha.js"></script>
+    <script type="text/javascript" src="../../js/geral.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 </head>
@@ -43,7 +44,7 @@
             <div class="row" style="padding-top: 1rem; padding-bottom: 1rem;">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <button type="button" id="btnEnviar"  class="btn btn-primary">Confirma E-mail</button>                    
+                    <button type="button" id="btnEnviar" title="Você receberá um e-mail com a nova senha gerada automaticamente" class="btn btn-primary">Confirma E-mail</button>                    
                 </div>
             </div>
         </form>

@@ -77,11 +77,11 @@ class AtualizarPerfilPersistencia   {
                 $contador = $contador + 1;
 
                 $retorno = $retorno . '{"dsEmail": "'.$linha["dsEmail"].'"
-                , "dsNome" : "'.$linha["dsNome"].'"
-                , "dsSobrenome" : "'.$linha["dsSobrenome"].'"
-                , "dtNascimento" : "'.$linha["dtNascimento"].'"
-                , "cdEstado" : "'.$linha["cdEstado"].'"
-                , "cdCidade" : "'.$linha["cdCidade"].'"}';
+                                      , "dsNome" : "'.$linha["dsNome"].'"
+                                      , "dsSobrenome" : "'.$linha["dsSobrenome"].'"
+                                      , "dtNascimento" : "'.$linha["dtNascimento"].'"
+                                      , "cdEstado" : "'.$linha["cdEstado"].'"
+                                      , "cdCidade" : "'.$linha["cdCidade"].'"}';
 
                 //Para não concatenar a virgula no final do json
                 if($qtdLinhas != $contador)
@@ -92,7 +92,7 @@ class AtualizarPerfilPersistencia   {
 
             return $retorno;
 
-            $this->getConexao()->fechaConexao();
+            $this->conexao->fechaConexao();
         }
 
         

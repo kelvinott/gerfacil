@@ -8,15 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <script type="text/javascript" src="../../js/cadastroevento.js"></script>
     
+    
 
 </head>
 <body>
 	<div class="container">
-        <form class="form-horizontal" role="form">
+        <form id="frmCadastroEvento" class="form-horizontal" role="form">
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <h2>Eventos</h2>
+                    <h2>Novo Evento</h2>
                     <hr>
                 </div>
             </div>
@@ -86,6 +87,17 @@
             <div class="row">
                 <div class="col-md-3"></div>                
                 <div class="col-md-3">
+                    <div class="form-group" class="form-control">
+                        <label class="sr-only" for="txbCategoria">Categoria</label>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <select id="txbCategoria" name="txbCategoria" class="form-control" required>
+                            <option value="" disabled selected>Categoria</option>
+                            <option value="1">Festa</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <div class="form-group has-danger">
                         <label class="sr-only" for="txbCep">CEP</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
@@ -93,6 +105,34 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <div class="form-group" class="form-control">
+                        <label class="sr-only" for="txbEstado">Estado</label>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <select id="txbEstado" name="txbEstado" class="form-control" required>
+                            <option value="" disabled selected>Estado</option>
+                            <option value="1">Santa Catarina</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group" class="form-control">
+                        <label class="sr-only" for="txbCidade">Cidade</label>
+                        <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <select id="txbCidade" name="txbCidade" class="form-control" required>
+                            <option value="" disabled selected>Cidade</option>
+                            <option value="1">Pomerode</option>
+                        </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
                 <div class="col-md-3">
                     <div class="form-group has-danger">
                         <label class="sr-only" for="txbBairro">Bairro</label>
@@ -101,9 +141,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3"></div>
                 <div class="col-md-3">
                     <div class="form-group has-danger">
                         <label class="sr-only" for="txbRua">Rua</label>
@@ -112,6 +149,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
                 <div class="col-md-3">
                     <div class="form-group has-danger">
                         <label class="sr-only" for="txbNumeroCasa">Número</label>
@@ -120,10 +160,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <div class="form-group has-danger">
                         <label class="sr-only" for="txbComplemento">Complemento</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
@@ -131,7 +168,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                
+            </div>            
+            </form>
             
             <div class="row">
                 <div class="col-md-3"></div>
@@ -139,8 +178,19 @@
                     <div class="form-group has-danger">
                         <label class="sr-only" for="txbImagem">Imagem</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="file" name="txbImagem" class="form-control-file" id="txbImagem" placeholder="Imagem" maxlength="9" required autofocus>
+                            <form id="formulario" class="form-horizontal" role="form" enctype="multipart/form-data" method="post" action="../controller/CadastroEventoController.php">   
+                                <input type="file" name="imagem" class="form-control-file" id="imagem">
+                            </form>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="ckbNotificacao" checked="checked">
+                        <label class="form-check-label" for="checkbox100">Receber notificações para novos participantes</label>
                     </div>
                 </div>
             </div>
@@ -149,8 +199,7 @@
                 <div class="col-md-6">
                     <button type="button" id="btnCadastrar" class="btn btn-primary"> Cadastrar</button>
                 </div>
-            </div>
-        </form>
+            </div>        
     </div>
 </body>
 </html>

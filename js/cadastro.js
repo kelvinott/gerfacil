@@ -1,6 +1,14 @@
 $(document).ready(function() {
   
-  
+  $("#txbEmail").val("lucas@gmail.com");
+              $("#txbNome").val("lucas");
+              $("#txbSobrenome").val("carlos");
+              $("#txbSenha").val("sk8sk8");
+              $("#txbSenhaRepetir").val("sk8sk8");
+              $("#txbNascimento").val("31/12/1994");
+              $("#txbEstado").val("1");
+              $("#txbCidade").val("1");
+              $('#ckbNotificacao').prop('checked', true);
 
   $("#btnCadastrar").click(function () {
     var txbEmail = $("#txbEmail").val();
@@ -11,11 +19,17 @@ $(document).ready(function() {
     var txbNascimento = $("#txbNascimento").val();
     var txbEstado = $("#txbEstado").val();
     var txbCidade = $("#txbCidade").val();
-        
-    var msgErro = validaCampos(txbEmail, txbNome, txbSobrenome, txbSenha, txbNascimento, txbEstado, txbCidade);
+    var ckbNotificacao = "";
+    
+    if($("#ckbNotificacao").is(':checked'))
+      ckbNotificacao = "1";
+    else
+      ckbNotificacao = "0";
+
+    var msgErro = validaCampos(txbEmail, txbNome, txbSobrenome, txbSenha, txbSenhaRepetir, txbNascimento, txbEstado, txbCidade);
 
       if(msgErro !== ""){
-          jbkrAlert.alerta('  !',msgErro);
+          jbkrAlert.alerta('Alerta!',msgErro);
           return;
       }
 
@@ -31,6 +45,7 @@ $(document).ready(function() {
               nascimento: txbNascimento,
               estado: txbEstado,
               cidade: txbCidade,
+              notificacao: ckbNotificacao,
               action: "cadastrar"
           },
 
@@ -38,33 +53,32 @@ $(document).ready(function() {
 
           //Se der tudo ok no envio...
           success: function (dados) {
-            $("#txbEmail").val("");
-            $("#txbNome").val("");
-            $("#txbSobrenome").val("");
-            $("#txbSenha").val("");
-            $("#txbNascimento").val("");
-            $("#txbEstado").val("");
-            $("#txbCidade").val("");
-            jbkrAlert.sucesso('Conta', 'Conta criada com sucesso!');
+            var json = $.parseJSON(dados);
+
+            if (json.status == 0) {
+              $("#txbEmail").val("");
+              $("#txbNome").val("");
+              $("#txbSobrenome").val("");
+              $("#txbSenha").val("");
+              $("#txbSenhaRepetir").val("");
+              $("#txbNascimento").val("");
+              $("#txbEstado").val("");
+              $("#txbCidade").val("");
+              $('#ckbNotificacao').prop('checked', false);
+
+              jbkrAlert.sucesso('Conta', 'Conta criada com sucesso!');             
+            } else {
+              jbkrAlert.alerta('E-mail', 'Este e-mail já está sendo utilizado. Tente novamente.');
+
+            }
+            
           }
       });
 
-      $.ajax({
-		    //Tipo de envio POST ou GET
-            type: "POST",
-            dataType: "text",
-            url: "../view/LoginView.php",
-            //Se der tudo ok no envio...
-            success: function (callback) {
-              $("#divPrincipal").html(callback);
-            }
-          });	
-      
-  
     });
 });
 
-function validaCampos(txbEmail, txbNome, txbSobrenome, txbSenha, txbNascimento, txbEstado, txbCidade){
+function validaCampos(txbEmail, txbNome, txbSobrenome, txbSenha, txbSenhaRepetir, txbNascimento, txbEstado, txbCidade){
     msgErro = "";
     
     if(txbEmail === ""){

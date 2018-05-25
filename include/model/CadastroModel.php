@@ -9,6 +9,7 @@ class CadastroModel {
 	private $nascimento;
 	private $estado;
 	private $cidade;
+	private $notificacao;
 
     public function setEmail($email){
 		$this->email = $email;
@@ -64,6 +65,14 @@ class CadastroModel {
 
 	public function getCidade(){
 		return $this->estado;
+	}
+
+	public function setNotificacao($notificacao){
+		$this->notificacao = $notificacao;
+	}
+
+	public function getNotificacao(){
+		return $this->notificacao;
 	}
 
 }

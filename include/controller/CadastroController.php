@@ -14,37 +14,45 @@ switch($_POST["action"]){
         $model->setSenha($_POST["senha"]);
         $model->setNascimento($_POST["nascimento"]);
         $model->setEstado($_POST["estado"]);
-        $model->setCidade($_POST["cidade"]);
+		$model->setCidade($_POST["cidade"]);
+		$model->setNotificacao($_POST["notificacao"]);
         
-        $persistencia->setModel($model);
-        $persistencia->Cadastrar();
-        
+		$persistencia->setModel($model);
+		$valido = $persistencia->validaExisteEmail();
+		
+		if(!$valido){
+			echo '{ "mensagem": "Conta criada com sucesso!", "status" : "0" }';
+			$persistencia->Cadastrar();
+		}
+		else
+			 echo '{ "mensagem": "Este e-mail já está sendo utilizado. Tente outro.", "status" : "1" }';
+		
 		break;
 	case 'buscar':
-   	$model = new UsuarioModel();
+   		$model = new UsuarioModel();
 
 		if(isset($_POST["codigo"])){
 				$model->setCodigo($_POST["codigo"]);
 		}
 
-    $model->setNome($_POST["nomUsu"]);
-    $model->setSobrenome($_POST["sobrenomeUsu"]);
-    $model->setSenha($_POST["senUsu"]);
-    $model->setEmail($_POST["desEml"]);
-    $model->setPapel($_POST["codPap"]);
-    $model->setSituacao($_POST["codSit"]);
-    $model->setPercentualComissaoCli($_POST["perComCli"]);
-    $model->setPercentualComissaoInt($_POST["perComInt"]);
+		$model->setNome($_POST["nomUsu"]);
+		$model->setSobrenome($_POST["sobrenomeUsu"]);
+		$model->setSenha($_POST["senUsu"]);
+		$model->setEmail($_POST["desEml"]);
+		$model->setPapel($_POST["codPap"]);
+		$model->setSituacao($_POST["codSit"]);
+		$model->setPercentualComissaoCli($_POST["perComCli"]);
+		$model->setPercentualComissaoInt($_POST["perComInt"]);
 
-   	$persistencia = new UsuarioPersistencia();
+		$persistencia = new UsuarioPersistencia();
 
-  	$persistencia->setModel($model);
+		$persistencia->setModel($model);
 
-   	$retorno = $persistencia->buscaUsuario();
+		$retorno = $persistencia->buscaUsuario();
 
-  	echo $retorno;
+		echo $retorno;
 
-   	break;
+   		break;
 	case 'atualizar':
 		$model = new UsuarioModel();
 
@@ -64,7 +72,7 @@ switch($_POST["action"]){
 
 		$persistencia->Atualizar();
 
-		break;
+		break;	
 }
 
 

@@ -35,20 +35,42 @@ class CadastroPersistencia{
 		$nascimento = date("d/m/y",strtotime(str_replace('/','-',$this->getModel()->getNascimento())));
 		$estado = $this->getModel()->getEstado();
 		$cidade = $this->getModel()->getCidade();
+		$notificacao = $this->getModel()->getNotificacao();
 	
-		$sSql = "INSERT INTO tbusuarios (dsEmail, dsNome, dsSobreNome, dsSenha, dtNascimento, cdEstado, cdCidade)
+		$sSql = "INSERT INTO tbusuarios (dsEmail, dsNome, dsSobreNome, dsSenha, dtNascimento, cdEstado, cdCidade, idNotificacao)
 		VALUES ('". $email ."'
 		,'". $nome ."'
 		,'". $sobrenome ."'
 		,'". $senha ."'
-		,'". $nascimento ."'
+		,STR_TO_DATE('" . $nascimento . "','%d/%m/%Y') 
 		,'". $estado ."'
-		,'". $cidade ."')";
+		,'". $cidade ."'
+		,'". $notificacao ."')";
 
 		$this->getConexao()->query($sSql);
 
 		$this->getConexao()->fechaConexao();
 
+	}
+
+	public function validaExisteEmail(){
+        $this->conexao->conectaBanco();
+		
+		$email = $this->getModel()->getEmail();
+		
+		$sSql = "select  1
+                    FROM tbusuarios usu
+                    WHERE upper(usu.dsEmail) = upper('" . $email . "')";
+
+
+		if( $oDados = $this->conexao->fetch_query($sSql) ) 
+			$valida = true;
+		else 			
+            $valida = false;
+            
+        $this->conexao->fechaConexao();
+
+		return $valida;
 	}
 	
 

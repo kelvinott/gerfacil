@@ -14,8 +14,16 @@ switch($_POST["action"]){
 		$persistencia = new EsqueceuSenhaPersistencia();
 
 		$persistencia->setModel($model);
-
-		$persistencia->Atualizar();
+		
+		$valido = $persistencia->validaExisteEmail();
+		
+		if($valido){
+			echo '{ "mensagem": "E-mail enviado com sucesso!", "status" : "0" }';
+			$persistencia->Atualizar();
+		}
+		else
+			 echo '{ "mensagem": "Este e-mail não consta no nosso sistema!", "status" : "1" }';
+		
 
 		break;
 }

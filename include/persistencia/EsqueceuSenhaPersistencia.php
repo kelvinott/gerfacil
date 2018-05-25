@@ -38,8 +38,9 @@ class EsqueceuSenhaPersistencia{
         $email = $this->getModel()->getEmail();		        
 		
 		$sSql = "UPDATE tbusuarios usu
-                    SET usu.dsSenha = '". $dsSenha . 
-                "' WHERE usu.dsEmail = '" . $email . "'";
+					SET usu.dsSenha = '". $dsSenha . "' 
+					   ,usu.idAlteraSenha = 1
+                  WHERE upper(usu.dsEmail) = upper('" . $email . "')";
 
 		$this->getConexao()->query($sSql);
 
@@ -49,6 +50,28 @@ class EsqueceuSenhaPersistencia{
       	$objemail->enviaEmail($email,$mensagem,$assunto,$emailUsuario,null);
 
 	}
+
+	public function validaExisteEmail(){
+        $this->conexao->conectaBanco();
+		
+		$email = $this->getModel()->getEmail();
+		
+		$sSql = "select  1
+                    FROM tbusuarios usu
+                    WHERE upper(usu.dsEmail) = upper('" . $email . "')";
+
+
+		if( $oDados = $this->conexao->fetch_query($sSql) ) 
+			$valida = true;
+		else 			
+            $valida = false;
+            
+        $this->conexao->fechaConexao();
+
+		return $valida;
+	}
+
+	
 
 }
 	

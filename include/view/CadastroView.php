@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <script type="text/javascript" src="../../js/cadastro.js"></script>
+    <script type="text/javascript" src="../../js/geral.js"></script>
     
 
 </head>
@@ -114,6 +115,15 @@
                         </select>
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="ckbNotificacao" checked="checked">
+                    <label class="form-check-label" for="checkbox100">Receber notificações para novos eventos da sua cidade</label>
+                </div>
                 </div>
             </div>
             <div class="row" style="padding-top: 1rem; padding-bottom: 1rem;">
