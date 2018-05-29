@@ -10,6 +10,7 @@ class CadastroModel {
 	private $estado;
 	private $cidade;
 	private $notificacao;
+	private $termo;
 
     public function setEmail($email){
 		$this->email = $email;
@@ -59,12 +60,12 @@ class CadastroModel {
 		return $this->estado;
     }
     
-    public function setCidade($estado){
-		$this->estado = $estado;
+    public function setCidade($cidade){
+		$this->cidade = $cidade;
 	}
 
 	public function getCidade(){
-		return $this->estado;
+		return $this->cidade;
 	}
 
 	public function setNotificacao($notificacao){
@@ -73,6 +74,14 @@ class CadastroModel {
 
 	public function getNotificacao(){
 		return $this->notificacao;
+	}
+
+	public function setTermo($termo){
+		$this->termo = $termo;
+	}
+
+	public function getTermo(){
+		return $this->termo;
 	}
 
 }

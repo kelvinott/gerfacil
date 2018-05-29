@@ -27,52 +27,35 @@ switch($_POST["action"]){
 		else
 			 echo '{ "mensagem": "Este e-mail já está sendo utilizado. Tente outro.", "status" : "1" }';
 		
-		break;
-	case 'buscar':
-   		$model = new UsuarioModel();
-
-		if(isset($_POST["codigo"])){
-				$model->setCodigo($_POST["codigo"]);
-		}
-
-		$model->setNome($_POST["nomUsu"]);
-		$model->setSobrenome($_POST["sobrenomeUsu"]);
-		$model->setSenha($_POST["senUsu"]);
-		$model->setEmail($_POST["desEml"]);
-		$model->setPapel($_POST["codPap"]);
-		$model->setSituacao($_POST["codSit"]);
-		$model->setPercentualComissaoCli($_POST["perComCli"]);
-		$model->setPercentualComissaoInt($_POST["perComInt"]);
-
-		$persistencia = new UsuarioPersistencia();
+		break;	
+	case 'autocompleteestados':
+		$model = new CadastroModel();
+		
+		$model->setTermo($_POST["termo"]);
+		
+		$persistencia = new CadastroPersistencia();
 
 		$persistencia->setModel($model);
 
-		$retorno = $persistencia->buscaUsuario();
+		$retorno = $persistencia->buscaEstadosAutoComplete();
 
 		echo $retorno;
 
-   		break;
-	case 'atualizar':
-		$model = new UsuarioModel();
-
-		$model->setCodigo($_POST["codigo"]);
-		$model->setNome($_POST["nomUsu"]);
-		$model->setSobrenome($_POST["sobrenomeUsu"]);
-        $model->setSenha($_POST["senUsu"]);
-		$model->setEmail($_POST["desEml"]);
-		$model->setPapel($_POST["codPap"]);
-		$model->setSituacao($_POST["codSit"]);
-        $model->setPercentualComissaoCli($_POST["perComCli"]);
-        $model->setPercentualComissaoInt($_POST["perComInt"]);
-
-		$persistencia = new UsuarioPersistencia();
+		break;		
+	case 'autocompletecidades':
+		$model = new CadastroModel();
+		
+		$model->setTermo($_POST["termo"]);
+		
+		$persistencia = new CadastroPersistencia();
 
 		$persistencia->setModel($model);
 
-		$persistencia->Atualizar();
+		$retorno = $persistencia->buscaCidadesAutoComplete();
 
-		break;	
+		echo $retorno;
+
+		break;
 }
 
 

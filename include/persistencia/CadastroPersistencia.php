@@ -73,6 +73,76 @@ class CadastroPersistencia{
 		return $valida;
 	}
 	
+	public function buscaEstadosAutoComplete(){
+		$this->conexao->conectaBanco();
+
+		$termo = $this->getModel()->getTermo();
+
+		$sSql = "SELECT CONCAT(est.cdEstado,' - ',est.nmEstado) nmEstado
+					FROM tbestado est
+					WHERE nmEstado LIKE '%". $termo ."%'";
+
+		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
+
+		$qtdLinhas = mysqli_num_rows($resultado);
+
+		$contador = 0;
+
+		$retorno = null;
+
+		while ($linha = mysqli_fetch_assoc($resultado)) {
+
+			$contador = $contador + 1;
+
+			$retorno = $retorno . utf8_encode($linha["nmEstado"]);
+
+			//Para não concatenar a virgula no final do json
+			if($qtdLinhas != $contador)
+				$retorno = $retorno . ',';
+
+		}
+
+		$this->conexao->fechaConexao();
+
+		return $retorno;
+
+	}
+
+	public function buscaCidadesAutoComplete(){
+		$this->conexao->conectaBanco();
+
+		$termo = $this->getModel()->getTermo();
+
+		$sSql = "SELECT CONCAT(cid.cdCidade,' - ',cid.nmCidade) nmCidade
+					FROM tbcidades cid
+					WHERE nmCidade LIKE '%". $termo ."%'";
+
+		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
+
+		$qtdLinhas = mysqli_num_rows($resultado);
+
+		$contador = 0;
+
+		$retorno = null;
+
+		while ($linha = mysqli_fetch_assoc($resultado)) {
+
+			$contador = $contador + 1;
+
+			$retorno = $retorno . utf8_encode($linha["nmCidade"]);
+
+			//Para não concatenar a virgula no final do json
+			if($qtdLinhas != $contador)
+				$retorno = $retorno . ',';
+
+		}
+
+		$this->conexao->fechaConexao();
+
+		return $retorno;
+
+	}
+	
 
 }
 	
