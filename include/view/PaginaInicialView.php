@@ -16,12 +16,15 @@ $_SESSION['userid'] = $usuarioLogado;
 	  <title>GerFacil - Gerenciador de eventos</title>
     <link rel="stylesheet" href="../../lib/bootstrap/css/bootstrap.min.css">  
     <script type="text/javascript" src="../../lib/jquery/jquery.min.js"></script>    
+    <script type="text/javascript" src="../../lib/jquery/jquery-ui.min.js"></script>    
+    <link rel="stylesheet" href="../../lib/jquery/jquery-ui.min.css">    
     <script type="text/javascript" src="../../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="../../js/paginainicial.js"></script>    
+    <script src="http://malsup.github.com/jquery.form.js"></script>    
     <link rel="stylesheet" href="../../css/alerta.css">    
-    <script src="http://malsup.github.com/jquery.form.js"></script>                
+    <script type="text/javascript" src="../../js/paginainicial.js"></script>                    
     <script type="text/javascript" src="../../js/alerta.js"></script>
     <script type="text/javascript" src="../../js/geral.js"></script>
+    
     
     <!-- Custom styles for this template -->
     <link href="../../css/3-col-portfolio.css" rel="stylesheet">
