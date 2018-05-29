@@ -1,14 +1,4 @@
 $(document).ready(function() {
-  
-  $("#txbEmail").val("lucas@gmail.com");
-              $("#txbNome").val("lucas");
-              $("#txbSobrenome").val("carlos");
-              $("#txbSenha").val("sk8sk8");
-              $("#txbSenhaRepetir").val("sk8sk8");
-              $("#txbNascimento").val("31/12/1994");
-              $("#txbEstado").val("1");
-              $("#txbCidade").val("1");
-              $('#ckbNotificacao').prop('checked', true);
 
   $("#btnCadastrar").click(function () {
     var txbEmail = $("#txbEmail").val();
@@ -17,8 +7,12 @@ $(document).ready(function() {
     var txbSenha = $("#txbSenha").val();
     var txbSenhaRepetir = $("#txbSenhaRepetir").val(); 
     var txbNascimento = $("#txbNascimento").val();
-    var txbEstado = $("#txbEstado").val();
-    var txbCidade = $("#txbCidade").val();
+
+    var estado = $("#txbEstado").val().split("-");
+    var cidade = $("#txbCidade").val().split("-");
+
+    var txbEstado = estado[0];
+    var txbCidade = cidade[0];
     var ckbNotificacao = "";
     
     if($("#ckbNotificacao").is(':checked'))
@@ -76,6 +70,73 @@ $(document).ready(function() {
       });
 
     });
+
+    $('#txbEstado').autocomplete({
+      minLength: 1,
+      maxLength: 10,
+      autoFocus: true,
+      delay: 300,
+      position: {
+        my: 'bottom top',
+        at: 'bottom'
+      },
+      appendTo: '#tabGeral',
+      source: function(request, response){
+        $.ajax({
+          url: '../controller/CadastroController.php',
+          type: 'POST',
+          dataType: 'text',
+          data: {
+            termo: request.term,
+            action: "autocompleteestados"
+          }
+        }).done(function(data){          
+          if(data.length > 0){
+            data = data.split(',');
+            data = data.slice(0, 10);
+            response($.each(data, function(key, item){
+              return({
+                label: item
+              });
+            }));
+          }
+        });
+      }
+    });
+
+    $('#txbCidade').autocomplete({
+      minLength: 1,
+      maxLength: 10,
+      autoFocus: true,
+      delay: 300,
+      position: {
+        my: 'bottom top',
+        at: 'bottom'
+      },
+      appendTo: '#tabGeral',
+      source: function(request, response){
+        $.ajax({
+          url: '../controller/CadastroController.php',
+          type: 'POST',
+          dataType: 'text',
+          data: {
+            termo: request.term,
+            action: "autocompletecidades"
+          }
+        }).done(function(data){          
+          if(data.length > 0){
+            data = data.split(',');
+            data = data.slice(0, 10);
+            response($.each(data, function(key, item){
+              return({
+                label: item
+              });
+            }));
+          }
+        });
+        
+      }
+    });
 });
 
 function validaCampos(txbEmail, txbNome, txbSobrenome, txbSenha, txbSenhaRepetir, txbNascimento, txbEstado, txbCidade){
@@ -125,191 +186,3 @@ function validaCampos(txbEmail, txbNome, txbSobrenome, txbSenha, txbSenhaRepetir
     return msgErro;
   
 }
-   /* $("#formUsuario #btnCancelar").click(function(){
-      limpaCampos($(this).closest("form"));
-      formularioModoInserir();
-      buscaUsuario();
-    });
-  
-    $("#formUsuario #btnBuscar").click(function () {
-      buscaUsuario();
-  
-    });
-  
-    $("#formUsuario #btnAtualizar").click(function () {
-      var codigo = $("#hidCodUsu").val();
-      var txbNomUsu = $("#txbNomUsu").val();
-      var txbSobrenomeUsu = $("#txbSobrenomeUsu").val();
-      var txbSenUsu = $("#txbSenUsu").val();
-      var txbSenUsuConfirma = $("#txbSenUsuConfirma").val();
-      var txbDesEml = $("#txbDesEml").val();
-      var cbbPapel = $("#cbbPapel").val();
-      var cbbSituacao = $("#cbbSituacao").val();
-      var txbPerComCli = $("#txbPerComCli").val();
-      var txbPerComInt = $("#txbPerComInt").val();
-  
-      var msgErro = validaCamposAtu(txbNomUsu, txbSobrenomeUsu, txbSenUsu, txbSenUsuConfirma, txbDesEml, cbbPapel, cbbSituacao);
-  
-      if(msgErro !== ""){
-        jbkrAlert.alerta('Alerta!',msgErro);
-      }
-      else{
-        $.ajax({
-          //Tipo de envio POST ou GET
-          type: "POST",
-          dataType: "text",
-          data: {
-            codigo: codigo,
-            nomUsu: txbNomUsu,
-            sobrenomeUsu: txbSobrenomeUsu,
-            senUsu: txbSenUsu,
-            desEml: txbDesEml,
-            codPap: cbbPapel,
-            codSit: cbbSituacao,
-            perComCli: txbPerComCli,
-            perComInt: txbPerComInt,
-            action: "atualizar"
-          },
-  
-          url: "../controller/UsuarioController.php",
-  
-          //Se der tudo ok no envio...
-          success: function (dados) {
-            jbkrAlert.sucesso('Usuário', 'Usuário atualizado com sucesso!');
-            $("#formUsuario #btnCancelar").trigger("click");
-          }
-        });
-      }
-    });
-  
-  });
-  
-  function buscaPapelDropdown(){
-    $.ajax({
-          //Tipo de envio POST ou GET
-          type: "POST",
-          dataType: "text",
-          data: {
-            action: "papeldropdown"
-          },
-  
-          url: "../controller/UsuarioController.php",
-  
-          //Se der tudo ok no envio...
-          success: function (dados) {
-            var json = $.parseJSON(dados);
-  
-            var dropdown = "";
-            for (var i = 0; i < json.length; i++) {
-  
-              var papel = json[i];
-  
-              dropdown = dropdown + '<li role="presentation" value="' + papel.codPap  + '"><a role="menuitem" tabindex="-1" href="#">' + papel.desPap + '</a></li>';
-  
-            }
-            $("#ulPapel").html(dropdown);
-  
-            $("#ulPapel li a").click(function(){
-  
-              $("#cbbPapel:first-child").text($(this).text());
-  
-              $("#ulPapel li").each(function(){
-  
-                if ($(this).text() == $("#cbbPapel").text().trim()){
-                  $("#cbbPapel").val($(this).val());
-                }
-              });
-  
-            });
-          }
-  
-        });
-  }
-  
-  function buscaUsuario(codigo){
-    var txbNomUsu = $("#txbNomUsu").val();
-    var txbSobrenomeUsu = $("#txbSobrenomeUsu").val();
-    var txbSenUsu = $("#txbSenUsu").val();
-    var txbDesEml = $("#txbDesEml").val();
-    var cbbPapel = $("#cbbPapel").val();
-    var cbbSituacao = $("#cbbSituacao").val();
-    var txbPerComCli = $("#txbPerComCli").val();
-    var txbPerComInt = $("#txbPerComInt").val();
-  
-    $.ajax({
-        //Tipo de envio POST ou GET
-        type: "POST",
-        dataType: "text",
-        data: {
-          codigo: codigo,
-          nomUsu: txbNomUsu,
-          sobrenomeUsu: txbSobrenomeUsu,
-          senUsu: txbSenUsu,
-          desEml: txbDesEml,
-          codPap: cbbPapel,
-          codSit: cbbSituacao,
-          perComCli: txbPerComCli,
-          perComInt: txbPerComInt,
-          action: "buscar"
-        },
-  
-        url: "../controller/UsuarioController.php",
-  
-        //Se der tudo ok no envio...
-        success: function (dados) {
-          var json = $.parseJSON(dados);
-          var usuario = null;
-  
-          //Carregando a grid
-          if(codigo == null){
-            var grid = "";
-            for (var i = 0; i < json.length; i++) {
-              usuario = json[i];
-  
-              grid = grid + "<tr>";
-              grid = grid + "<td>" + usuario.codUsu  + "</td>";
-              grid = grid + "<td>" + usuario.nomUsu  + "</td>";
-              grid = grid + "<td>" + usuario.sobrenomeUsu  + "</td>";
-              grid = grid + "<td>" + usuario.desEml  + "</td>";
-              grid = grid + "<td>" + usuario.desPap + "</td>";
-              grid = grid + "<td>" + usuario.perComCli + "</td>";
-              grid = grid + "<td>" + usuario.perComInt + "</td>";
-              grid = grid + "<td>" + usuario.desSit + "</td>";
-              grid = grid + "<td href='javascript:void(0);' onClick='buscaUsuario(" + usuario.codUsu + ")'><a>Editar <span class='glyphicon glyphicon-pencil'></span></a></td>";
-              grid = grid + "</tr>";
-  
-            }
-            $("#grdUsuario").html(grid);
-          }else{
-            formularioModoAtualizar();
-            for (var j = 0; j < json.length; j++) {
-              usuario = json[j];
-  
-              $("#hidCodUsu").val(usuario.codUsu);
-              $("#txbNomUsu").val(usuario.nomUsu);
-              $("#txbSobrenomeUsu").val(usuario.sobrenomeUsu);
-              $("#txbDesEml").val(usuario.desEml);
-              $("#cbbPapel:first-child").text(usuario.desPap);
-              $("#cbbPapel:first-child").val(usuario.codPap);
-              $("#cbbSituacao:first-child").text(usuario.desSit);
-              $("#cbbSituacao:first-child").val(usuario.codSit);
-              $("#txbPerComCli").val(usuario.perComCli);
-              $("#txbPerComInt").val(usuario.perComInt);
-  
-            }
-  
-          }
-  
-        }
-      });
-  
-  }
-  
-  
-  
-  
-  
-  function aplicaMascaraUsuario(){
-    $("#txbPerComCli").mask('99%', {reverse: false});
-    $("#txbPerComInt").mask('99%', {reverse: false});
-  }*/
