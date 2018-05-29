@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+$usuarioLogado = $_SESSION["cdUsuario"]; 
+$_SESSION['userid'] = $usuarioLogado;
 ?>
 <!DOCTYPE html>
 <html>
@@ -24,6 +25,11 @@ session_start();
     
     <!-- Custom styles for this template -->
     <link href="../../css/3-col-portfolio.css" rel="stylesheet">
+  <!-- start orangechat code -->
+  <link type="text/css" rel="stylesheet" media="all" href="../../orangechat/orangechat/orangecss.php" />
+  <script type="text/javascript" src="../../orangechat/orangechat/orangejs.php"></script>
+  <!-- end orangechat code -->
+
     <script>
       window.fbAsyncInit = function() {
         FB.init({
