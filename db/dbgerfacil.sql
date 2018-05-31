@@ -16,6 +16,21 @@
 CREATE DATABASE IF NOT EXISTS `dbgerfacil` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `dbgerfacil`;
 
+-- Copiando estrutura para tabela dbgerfacil.chat
+CREATE TABLE IF NOT EXISTS `chat` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `from` varchar(255) NOT NULL DEFAULT '',
+  `to` varchar(255) NOT NULL DEFAULT '',
+  `message` text NOT NULL,
+  `sent` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `recd` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Copiando dados para a tabela dbgerfacil.chat: ~0 rows (aproximadamente)
+/*!40000 ALTER TABLE `chat` DISABLE KEYS */;
+/*!40000 ALTER TABLE `chat` ENABLE KEYS */;
+
 -- Copiando estrutura para tabela dbgerfacil.chat_lastactivity
 CREATE TABLE IF NOT EXISTS `chat_lastactivity` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -68,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `tbatividades` (
   CONSTRAINT `FK_tbatividades_tbusuarios` FOREIGN KEY (`cdUsuario`) REFERENCES `tbusuarios` (`cdUsuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela dbgerfacil.tbatividades: ~6 rows (aproximadamente)
+-- Copiando dados para a tabela dbgerfacil.tbatividades: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `tbatividades` DISABLE KEYS */;
 INSERT INTO `tbatividades` (`cdAtividade`, `cdUsuario`, `cdEvento`, `nmAtividade`, `dsAtividade`, `dtAtividadeInicio`, `hrInicioAtividade`, `hrTerminoAtividade`, `idAtivo`, `dtAtividadeTermino`) VALUES
 	(1, 12, 1, 'Gravata', 'Coletar dinheiro dos convidados', '2018-05-24', '12:00:00', '01:00:00', 1, '2018-05-24'),
