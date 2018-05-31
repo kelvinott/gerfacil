@@ -63,10 +63,12 @@ CREATE TABLE IF NOT EXISTS `tbatividades` (
   `dtAtividadeTermino` date DEFAULT NULL,
   PRIMARY KEY (`cdAtividade`),
   KEY `tbAtividades_FKIndex1` (`cdEvento`),
-  KEY `tbAtividades_FKIndex2` (`cdUsuario`)
+  KEY `tbAtividades_FKIndex2` (`cdUsuario`),
+  CONSTRAINT `FK_tbatividades_tbeventos` FOREIGN KEY (`cdEvento`) REFERENCES `tbeventos` (`cdEvento`),
+  CONSTRAINT `FK_tbatividades_tbusuarios` FOREIGN KEY (`cdUsuario`) REFERENCES `tbusuarios` (`cdUsuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela dbgerfacil.tbatividades: ~5 rows (aproximadamente)
+-- Copiando dados para a tabela dbgerfacil.tbatividades: ~6 rows (aproximadamente)
 /*!40000 ALTER TABLE `tbatividades` DISABLE KEYS */;
 INSERT INTO `tbatividades` (`cdAtividade`, `cdUsuario`, `cdEvento`, `nmAtividade`, `dsAtividade`, `dtAtividadeInicio`, `hrInicioAtividade`, `hrTerminoAtividade`, `idAtivo`, `dtAtividadeTermino`) VALUES
 	(1, 12, 1, 'Gravata', 'Coletar dinheiro dos convidados', '2018-05-24', '12:00:00', '01:00:00', 1, '2018-05-24'),
@@ -84,17 +86,13 @@ CREATE TABLE IF NOT EXISTS `tbavaliacoes` (
   `qtEstrela` int(9) unsigned NOT NULL,
   PRIMARY KEY (`cdAvaliacoes`),
   KEY `tbAvaliacoes_FKIndex1` (`cdUsuario`),
-  KEY `tbAvaliacoes_FKIndex2` (`cdEvento`)
+  KEY `tbAvaliacoes_FKIndex2` (`cdEvento`),
+  CONSTRAINT `FK_tbavaliacoes_tbeventos` FOREIGN KEY (`cdEvento`) REFERENCES `tbeventos` (`cdEvento`),
+  CONSTRAINT `FK_tbavaliacoes_tbusuarios` FOREIGN KEY (`cdUsuario`) REFERENCES `tbusuarios` (`cdUsuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela dbgerfacil.tbavaliacoes: ~5 rows (aproximadamente)
+-- Copiando dados para a tabela dbgerfacil.tbavaliacoes: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `tbavaliacoes` DISABLE KEYS */;
-INSERT INTO `tbavaliacoes` (`cdAvaliacoes`, `cdEvento`, `cdUsuario`, `qtEstrela`) VALUES
-	(1, 7, 4, 4),
-	(2, 1, 4, 3),
-	(3, 40, 4, 4),
-	(4, 1, 12, 5),
-	(5, 44, 1, 5);
 /*!40000 ALTER TABLE `tbavaliacoes` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela dbgerfacil.tbbairros
@@ -20174,7 +20172,9 @@ CREATE TABLE IF NOT EXISTS `tbusuarios` (
   `idFacebook` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`cdUsuario`),
   KEY `tbUsuarios_FKIndex3` (`cdCidade`),
-  KEY `tbUsuarios_FKIndex4` (`cdEstado`)
+  KEY `tbUsuarios_FKIndex4` (`cdEstado`),
+  CONSTRAINT `FK_tbusuarios_tbcidades` FOREIGN KEY (`cdCidade`) REFERENCES `tbcidades` (`cdCidade`),
+  CONSTRAINT `FK_tbusuarios_tbestado` FOREIGN KEY (`cdEstado`) REFERENCES `tbestado` (`cdEstado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
 
 -- Copiando dados para a tabela dbgerfacil.tbusuarios: ~8 rows (aproximadamente)
@@ -20200,6 +20200,7 @@ CREATE TABLE IF NOT EXISTS `tbusuarios_tbeventos` (
   KEY `tbUsuarios_has_tbEventos_FKIndex2` (`cdEvento`),
   KEY `tbUsuarios_has_tbEventos_FKIndex3` (`tbPerfis_cdPerfil`),
   CONSTRAINT `FK_tbusuarios_tbeventos_tbeventos` FOREIGN KEY (`cdEvento`) REFERENCES `tbeventos` (`cdEvento`),
+  CONSTRAINT `FK_tbusuarios_tbeventos_tbperfis` FOREIGN KEY (`tbPerfis_cdPerfil`) REFERENCES `tbperfis` (`cdPerfil`),
   CONSTRAINT `FK_tbusuarios_tbeventos_tbusuarios` FOREIGN KEY (`cdUsuario`) REFERENCES `tbusuarios` (`cdUsuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
