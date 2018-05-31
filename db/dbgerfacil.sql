@@ -104,10 +104,12 @@ CREATE TABLE IF NOT EXISTS `tbavaliacoes` (
   KEY `tbAvaliacoes_FKIndex2` (`cdEvento`),
   CONSTRAINT `FK_tbavaliacoes_tbeventos` FOREIGN KEY (`cdEvento`) REFERENCES `tbeventos` (`cdEvento`),
   CONSTRAINT `FK_tbavaliacoes_tbusuarios` FOREIGN KEY (`cdUsuario`) REFERENCES `tbusuarios` (`cdUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- Copiando dados para a tabela dbgerfacil.tbavaliacoes: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `tbavaliacoes` DISABLE KEYS */;
+INSERT INTO `tbavaliacoes` (`cdAvaliacoes`, `cdEvento`, `cdUsuario`, `qtEstrela`) VALUES
+	(6, 43, 53, 4);
 /*!40000 ALTER TABLE `tbavaliacoes` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela dbgerfacil.tbbairros
@@ -20115,7 +20117,6 @@ CREATE TABLE IF NOT EXISTS `tbeventos` (
   `dtTermino` date DEFAULT NULL,
   `hrInicio` time DEFAULT NULL,
   `hrTermino` time DEFAULT NULL,
-  `nmBairro` varchar(100) DEFAULT NULL,
   `nmRua` varchar(100) DEFAULT NULL,
   `nrLocal` int(9) unsigned DEFAULT NULL,
   `dsComplemento` varchar(100) DEFAULT NULL,
@@ -20138,20 +20139,20 @@ CREATE TABLE IF NOT EXISTS `tbeventos` (
 
 -- Copiando dados para a tabela dbgerfacil.tbeventos: ~13 rows (aproximadamente)
 /*!40000 ALTER TABLE `tbeventos` DISABLE KEYS */;
-INSERT INTO `tbeventos` (`cdEvento`, `cdBairro`, `cdEstado`, `cdCidade`, `cdUsuario`, `cdCategoria`, `nmEvento`, `dsEvento`, `dtInicio`, `dtTermino`, `hrInicio`, `hrTermino`, `nmBairro`, `nmRua`, `nrLocal`, `dsComplemento`, `nrCep`, `idAtivo`, `nmImagem`, `idNotificacao`) VALUES
-	(1, 1, 42, 4513, 12, 1, 'Casamento', 'teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste ', '2018-04-15', '2018-04-15', '22:00:00', '06:00:00', 'Wunderwald', 'Emilio Back', 99999, 'Pizzaria Verace', '89010110', 1, 'feed600f92261270ef1e81a45dcfc2ad.jpg', 1),
-	(2, 1, 42, 4350, 12, 1, 'Festa2', 'Festa muito legal2', '2018-04-21', '2018-04-21', '22:00:00', '06:00:00', 'Wunderwald', 'Emilio Back', 88, 'Pizzaria Verace', '89107000', 1, 'festa.jpg', 0),
-	(3, 1, 42, 4513, 12, 1, 'Festa 2', 'Festa muito legal 2', '2018-04-16', '2018-04-16', '22:00:00', '06:00:00', 'Wunderwald', 'Emilio Back', 88, 'Pizzaria Verace', '89107000', 1, '03fed7836a08363a3c2b8da0317bdda7.jpg', 0),
-	(4, 1, 42, 4350, 12, 1, 'Formatura', 'Formatura muito legal', '2018-04-17', '2018-04-17', '22:00:00', '06:00:00', 'Wunderwald', 'Emilio Back', 88, 'Pizzaria Verace', '11065101', 1, 'formatura.jpg', 0),
-	(5, 1, 42, 4350, 12, 1, 'Jantar', 'Jantar muito legal', '2018-04-18', '2018-04-18', '22:00:00', '06:00:00', 'Wunderwald', 'Emilio Back', 88, 'Pizzaria Verace', '89010000', 1, 'jantar.jpg', 0),
-	(6, 1, 42, 4350, 12, 1, 'Palestra', 'Palestra muito legal', '2018-04-19', '2018-04-19', '22:00:00', '06:00:00', 'Wunderwald', 'Emilio Back', 88, 'Pizzaria Verace', '89010020', 1, 'palestra.jpg', 0),
-	(7, 1, 42, 4513, 12, 1, 'Festa', 'Festa muito legal6', '2018-04-20', '2018-04-20', '22:00:00', '06:00:00', 'Wunderwald', 'Emilio Back', 88, 'Pizzaria Verace', '11065101', 1, 'ec10ca0de25f6bdca7256b6ce6825498.jpg', 0),
-	(8, 1, 42, 4513, 12, 1, 'Festa', 'Festa muito legal7', '2018-04-21', '2018-04-21', '22:00:00', '06:00:00', 'Wunderwald', 'Emilio Back', 88, 'Pizzaria Verace', '89010020', 1, '2cc45e0d6c1f442a98cfac5b41b09507.jpg', 0),
-	(9, 1, 42, 4513, 12, 1, 'Festa', 'Festa muito legal8', '2018-04-22', '2018-04-22', '22:00:00', '06:00:00', 'Wunderwald', 'Emilio Back', 88, 'Pizzaria Verace', '89010110', 1, 'f35da07fc6c496d45b2fb06d33435d4a.jpg', 0),
-	(41, 1, 42, 4513, 12, 1, 'Futebol de salÃ£o', 'Estamos montando dois times para realizar um jogo de futebol de salÃ£o', '2018-05-22', '2018-05-22', '09:00:00', '11:00:00', 'Centro', 'Centro', 99, 'Perto dos correios', '89107000', 1, '32b70c60ace4abd557306d90c98e4ca6.jpg', 0),
-	(42, 1, 42, 4513, 12, 1, 'Evento de jogos', 'Eventos de jogos de video game', '2018-05-25', '2018-05-25', '09:00:00', '18:00:00', 'Wunderwald', 'Emilio Beck', 88, 'Centro', '89107000', 1, 'f17595358b18a9a7468d8ea9b4907759.jpg', 0),
-	(43, 1, 42, 4513, 12, 1, 'teste', 'teste', '1994-12-31', '1994-12-31', '10:00:00', '10:00:00', 'TESTE', 'TESTE', 43, 'TESTE', '89107000', 1, '2468133dfd9db428c962425c52f4a864.jpg', 1),
-	(44, 1, 42, 4513, 12, 1, 'teste', 'teste', '1994-12-31', '1994-12-31', '10:00:00', '10:00:00', 'TESTE', 'TESTE', 4, 'TESTE', '89107000', 1, 'c302f057d5cd0d41506bd501d6a929aa.jpg', 1);
+INSERT INTO `tbeventos` (`cdEvento`, `cdBairro`, `cdEstado`, `cdCidade`, `cdUsuario`, `cdCategoria`, `nmEvento`, `dsEvento`, `dtInicio`, `dtTermino`, `hrInicio`, `hrTermino`, `nmRua`, `nrLocal`, `dsComplemento`, `nrCep`, `idAtivo`, `nmImagem`, `idNotificacao`) VALUES
+	(1, 1, 42, 4513, 12, 1, 'Casamento', 'teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste teste ', '2018-04-15', '2018-04-15', '22:00:00', '06:00:00', 'Emilio Back', 99999, 'Pizzaria Verace', '89010110', 1, 'feed600f92261270ef1e81a45dcfc2ad.jpg', 1),
+	(2, 1, 42, 4350, 12, 1, 'Festa2', 'Festa muito legal2', '2018-04-21', '2018-04-21', '22:00:00', '06:00:00', 'Emilio Back', 88, 'Pizzaria Verace', '89107000', 1, 'festa.jpg', 0),
+	(3, 1, 42, 4513, 12, 1, 'Festa 2', 'Festa muito legal 2', '2018-04-16', '2018-04-16', '22:00:00', '06:00:00', 'Emilio Back', 88, 'Pizzaria Verace', '89107000', 1, '03fed7836a08363a3c2b8da0317bdda7.jpg', 0),
+	(4, 1, 42, 4350, 12, 1, 'Formatura', 'Formatura muito legal', '2018-04-17', '2018-04-17', '22:00:00', '06:00:00', 'Emilio Back', 88, 'Pizzaria Verace', '11065101', 1, 'formatura.jpg', 0),
+	(5, 1, 42, 4350, 12, 1, 'Jantar', 'Jantar muito legal', '2018-04-18', '2018-04-18', '22:00:00', '06:00:00', 'Emilio Back', 88, 'Pizzaria Verace', '89010000', 1, 'jantar.jpg', 0),
+	(6, 1, 42, 4350, 12, 1, 'Palestra', 'Palestra muito legal', '2018-04-19', '2018-04-19', '22:00:00', '06:00:00', 'Emilio Back', 88, 'Pizzaria Verace', '89010020', 1, 'palestra.jpg', 0),
+	(7, 1, 42, 4513, 12, 1, 'Festa', 'Festa muito legal6', '2018-04-20', '2018-04-20', '22:00:00', '06:00:00', 'Emilio Back', 88, 'Pizzaria Verace', '11065101', 1, 'ec10ca0de25f6bdca7256b6ce6825498.jpg', 0),
+	(8, 1, 42, 4513, 12, 1, 'Festa', 'Festa muito legal7', '2018-04-21', '2018-04-21', '22:00:00', '06:00:00', 'Emilio Back', 88, 'Pizzaria Verace', '89010020', 1, '2cc45e0d6c1f442a98cfac5b41b09507.jpg', 0),
+	(9, 1, 42, 4513, 12, 1, 'Festa', 'Festa muito legal8', '2018-04-22', '2018-04-22', '22:00:00', '06:00:00', 'Emilio Back', 88, 'Pizzaria Verace', '89010110', 1, 'f35da07fc6c496d45b2fb06d33435d4a.jpg', 0),
+	(41, 1, 42, 4513, 12, 1, 'Futebol de salÃ£o', 'Estamos montando dois times para realizar um jogo de futebol de salÃ£o', '2018-05-22', '2018-05-22', '09:00:00', '11:00:00', 'Centro', 99, 'Perto dos correios', '89107000', 1, '32b70c60ace4abd557306d90c98e4ca6.jpg', 0),
+	(42, 1, 42, 4513, 12, 1, 'Evento de jogos', 'Eventos de jogos de video game', '2018-05-25', '2018-05-25', '09:00:00', '18:00:00', 'Emilio Beck', 88, 'Centro', '89107000', 1, 'f17595358b18a9a7468d8ea9b4907759.jpg', 0),
+	(43, 1, 42, 4513, 12, 1, 'teste', 'teste', '1994-12-31', '1994-12-31', '10:00:00', '10:00:00', 'TESTE', 43, 'TESTE', '89107000', 1, '2468133dfd9db428c962425c52f4a864.jpg', 1),
+	(44, 1, 42, 4513, 12, 1, 'teste', 'teste', '1994-12-31', '1994-12-31', '10:00:00', '10:00:00', 'TESTE', 4, 'TESTE', '89107000', 1, 'c302f057d5cd0d41506bd501d6a929aa.jpg', 1);
 /*!40000 ALTER TABLE `tbeventos` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela dbgerfacil.tbperfis
@@ -20190,19 +20191,20 @@ CREATE TABLE IF NOT EXISTS `tbusuarios` (
   KEY `tbUsuarios_FKIndex4` (`cdEstado`),
   CONSTRAINT `FK_tbusuarios_tbcidades` FOREIGN KEY (`cdCidade`) REFERENCES `tbcidades` (`cdCidade`),
   CONSTRAINT `FK_tbusuarios_tbestado` FOREIGN KEY (`cdEstado`) REFERENCES `tbestado` (`cdEstado`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
 
 -- Copiando dados para a tabela dbgerfacil.tbusuarios: ~8 rows (aproximadamente)
 /*!40000 ALTER TABLE `tbusuarios` DISABLE KEYS */;
 INSERT INTO `tbusuarios` (`cdUsuario`, `cdEstado`, `cdCidade`, `dsEmail`, `dsSenha`, `dtNascimento`, `dsNome`, `dsSobrenome`, `idAtivo`, `idAlteraSenha`, `idNotificacao`, `idFacebook`) VALUES
-	(1, 42, 4350, 'teste@teste.com', 'teste1', '1994-12-31', 'teste', 'teste', 1, 0, 0, NULL),
-	(12, 42, 4350, 'kelvinott3112@gmail.com', 'sk8sk8', '1994-12-31', 'Kelvin', 'Ott', 1, 0, 0, NULL),
-	(13, 42, 4350, 'lucas@gmail.com', 'sk8sk8', '1994-12-31', 'lucas', 'carlos', 1, 0, 0, NULL),
-	(14, 42, 4350, 'lucas@ggmail.com', 'sk8sk8', '1994-12-31', 'lucas', 'carlos', 1, 0, 1, NULL),
-	(15, 42, 4350, 'lucas@gggmail.com', 'sk8sk8', '1994-12-31', 'lucas', 'carlos', 1, 0, 1, NULL),
-	(16, 42, 4350, 'lucas@ggggmail.com', 'sk8sk8', '1994-12-31', 'lucas', 'carlos', 1, 0, 1, NULL),
-	(17, 42, 4350, 'lucass@gmail.com', 'sk8sk8', '1994-12-31', 'lucas', 'carlos', 1, 0, 0, NULL),
-	(19, 42, 4513, 'sssssssssss@gmail.com', 'sk8sk8', '1994-12-31', 'lucas', 'carlos', 1, 0, 1, NULL);
+	(1, 42, 19, 'kelvinott311222@gmail.com', 'teste1', '0000-00-00', 'Kelvin', 'Ott', 1, 0, 0, NULL),
+	(12, 42, 4350, 'kelvinott3112@gmail.com', 'sk8sk8', '1970-01-01', 'Kelvin', 'Ott', 1, 0, 0, NULL),
+	(13, 42, 19, 'kelvinott311222@gmail.com', 'sk8sk8', '0000-00-00', 'Kelvin', 'Ott', 1, 0, 0, NULL),
+	(14, 42, 19, 'kelvinott311222@gmail.com', 'sk8sk8', '0000-00-00', 'Kelvin', 'Ott', 1, 0, 1, NULL),
+	(15, 42, 19, 'kelvinott311222@gmail.com', 'sk8sk8', '0000-00-00', 'Kelvin', 'Ott', 1, 0, 1, NULL),
+	(16, 42, 19, 'kelvinott311222@gmail.com', 'sk8sk8', '0000-00-00', 'Kelvin', 'Ott', 1, 0, 1, NULL),
+	(17, 42, 19, 'kelvinott311222@gmail.com', 'sk8sk8', '0000-00-00', 'Kelvin', 'Ott', 1, 0, 0, NULL),
+	(19, 42, 19, 'kelvinott311222@gmail.com', 'sk8sk8', '0000-00-00', 'Kelvin', 'Ott', 1, 0, 1, NULL),
+	(53, 42, 19, 'kelvinott311222@gmail.com', NULL, '1994-12-31', 'Kelvin', 'Ott', 1, 0, 0, '542488486147725');
 /*!40000 ALTER TABLE `tbusuarios` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela dbgerfacil.tbusuarios_tbeventos
@@ -20225,6 +20227,7 @@ INSERT INTO `tbusuarios_tbeventos` (`cdUsuario`, `cdEvento`, `tbPerfis_cdPerfil`
 	(1, 8, 1),
 	(1, 9, 1),
 	(1, 44, 1),
+	(53, 43, 1),
 	(1, 1, 2),
 	(1, 41, 2),
 	(12, 1, 3),
