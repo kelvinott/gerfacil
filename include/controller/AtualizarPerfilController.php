@@ -37,6 +37,34 @@ switch($_POST["action"]){
 
 		$persistencia->Atualizar();
 
+        break;
+    case 'autocompleteestados':
+		$model = new AtualizarPerfilModel();
+		
+		$model->setTermo($_POST["termo"]);
+		
+		$persistencia = new AtualizarPerfilPersistencia();
+
+		$persistencia->setModel($model);
+
+		$retorno = $persistencia->buscaEstadosAutoComplete();
+
+		echo $retorno;
+
+		break;		
+	case 'autocompletecidades':
+		$model = new AtualizarPerfilModel();
+		
+		$model->setTermo($_POST["termo"]);
+		
+		$persistencia = new AtualizarPerfilPersistencia();
+
+		$persistencia->setModel($model);
+
+		$retorno = $persistencia->buscaCidadesAutoComplete();
+
+		echo $retorno;
+
 		break;
 }
 

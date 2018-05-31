@@ -71,6 +71,63 @@ else {
             $persistencia->Cadastrar();
 
             break;
+        case 'autocompleteestados':
+            $model = new CadastroEventoModel();
+            
+            $model->setTermo($_POST["termo"]);
+            
+            $persistencia = new CadastroEventoPersistencia();
+    
+            $persistencia->setModel($model);
+    
+            $retorno = $persistencia->buscaEstadosAutoComplete();
+    
+            echo $retorno;
+    
+            break;		
+        case 'autocompletecidades':
+            $model = new CadastroEventoModel();
+            
+            $model->setTermo($_POST["termo"]);
+            
+            $persistencia = new CadastroEventoPersistencia();
+    
+            $persistencia->setModel($model);
+    
+            $retorno = $persistencia->buscaCidadesAutoComplete();
+    
+            echo $retorno;
+    
+            break;
+        case 'autocompletebairros':
+            $model = new CadastroEventoModel();
+            
+            $model->setTermo($_POST["termo"]);
+            
+            $persistencia = new CadastroEventoPersistencia();
+    
+            $persistencia->setModel($model);
+    
+            $retorno = $persistencia->buscaBairrosAutoComplete();
+    
+            echo $retorno;
+    
+            break;
+        case 'validainformacoesperfil':
+            $model = new CadastroEventoModel();
+            
+            $model->setUsuario($_SESSION["cdUsuario"]);
+            
+            $persistencia = new CadastroEventoPersistencia();
+    
+            $persistencia->setModel($model);
+    
+            $retorno = $persistencia->validaInformacoesPerfil();
+    
+            echo $retorno;        
+    
+            break;
+            
     }
 }
 

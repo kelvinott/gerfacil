@@ -29,6 +29,8 @@ class MeusEventosModel {
     private $dataTerminoAtividade;
     private $horaInicioAtividade;
     private $horaTerminoAtividade;
+
+    private $termo;
 		
 	public function setUsuario($cdUsuario){
 		$this->cdUsuario = $cdUsuario;
@@ -302,6 +304,14 @@ class MeusEventosModel {
 
 	public function getNotificacao(){
 		return $this->notificacao;
+    }
+    
+    public function setTermo($termo){
+		$this->termo = $termo;
+	}
+
+	public function getTermo(){
+		return $this->termo;
 	}
 
     

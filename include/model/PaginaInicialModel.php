@@ -8,6 +8,7 @@ class PaginaInicialModel {
 	private $pesquisar;
 	private $inicio;
 	private $fim;
+	private $idFacebook;
 
 	public function setCodigo($codigo){
 		$this->codigo = $codigo;
@@ -15,6 +16,14 @@ class PaginaInicialModel {
 
 	public function getCodigo(){
 		return $this->codigo;
+	}
+
+	public function setIdFacebook($idFacebook){
+		$this->idFacebook = $idFacebook;
+	}
+
+	public function getIdFacebook(){
+		return $this->idFacebook;
 	}
 
 	public function setEstado($estado){

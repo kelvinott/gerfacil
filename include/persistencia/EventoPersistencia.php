@@ -1,6 +1,7 @@
 <?php
 
 require_once("../../estrutura/conexao.php");
+require_once("../../estrutura/conf_email.php");
 
 class EventoPersistencia   {
 	protected $model;
@@ -37,11 +38,12 @@ class EventoPersistencia   {
                        ,eve.dtTermino dtTermino
                        ,eve.hrInicio hrInicio
                        ,eve.hrTermino hrTermino
-                       ,eve.nmBairro nmBairro
+                       ,bar.nmBairro nmBairro
                        ,eve.nmRua nmRua                       
                        ,eve.nrLocal nrLocal
                        ,eve.dsComplemento dsComplemento
                        ,eve.nrCep nrCep
+                       ,eve.cdEvento cdEvento
                   FROM tbeventos eve
                   JOIN tbestado est
                     ON est.cdEstado = eve.cdEstado
@@ -49,6 +51,8 @@ class EventoPersistencia   {
                     ON cid.cdCidade = eve.cdCidade
                   JOIN tbcategorias cat
                     ON cat.cdCategoria = eve.cdCategoria 
+                  JOIN tbbairros bar
+                    ON bar.cdBairro = eve.cdBairro
                  WHERE eve.cdEvento = " . $cdEvento;
 
         $resultado = mysqli_query($this->conexao->getConexao(), $sSql);
@@ -66,7 +70,7 @@ class EventoPersistencia   {
             while ($linha = mysqli_fetch_assoc($resultado)) {
 
                 $contador = $contador + 1;
-
+                
                 $retorno = $retorno . '{"nmImagem": "'.$linha["nmImagem"].'"
                                       , "nmEvento" : "'.$linha["nmEvento"].'"
                                       , "nrCep" : "'.$linha["nrCep"].'"                                                                          
@@ -163,8 +167,21 @@ class EventoPersistencia   {
                                                   ,tbperfis_cdPerfil) 
                                            values (" . $cdUsuario . "
                                                   ," . $cdEvento . " 
-                                                  , 1)";
-                                              
+                                                  , 1)";    
+        
+        $emailUsuario = 'kelvinott3112@gmail.com';
+        
+        
+        $nmEvento = $this->buscaNmEvento($cdEvento);
+        $nmUsuario = $this->buscaNmUsuario($cdUsuario);
+        $dsEmail = $this->emailOrganizadorEvento($cdEvento);
+
+        $assunto = "Novo participante do evento - " . $nmEvento;
+
+        $mensagem = "O usuario " . $nmUsuario . " está participando do seu evento " . $nmEvento;            
+            
+        /*$objemail->enviaEmail($dsEmail,$mensagem,$assunto,$emailUsuario,null);*/
+
         $this->conexao->query($sSql);
 
 		$this->conexao->fechaConexao();
@@ -377,6 +394,62 @@ class EventoPersistencia   {
 
             $this->getConexao()->fechaConexao();
         }        
+    }
+
+    public function emailOrganizadorEvento($cdEvento){
+        $this->conexao->conectaBanco();
+		
+		$sSql = "SELECT usu.dsEmail dsEmail
+                   FROM tbeventos eve
+                   JOIN tbusuarios usu
+                     ON usu.cdUsuario = eve.cdUsuario
+                  WHERE eve.cdEvento = " . $cdEvento;
+                      
+        if( $oDados = $this->conexao->fetch_query($sSql) ) {
+            return $oDados->dsEmail;        
+        }
+        else
+            return "erro";
+
+        $this->conexao->fechaConexao();
+
+		
+    }
+
+    public function buscaNmEvento($cdEvento){
+        $this->conexao->conectaBanco();
+		
+		$sSql = "SELECT eve.nmEvento nmEvento
+                   FROM tbeventos eve                   
+                  WHERE eve.cdEvento = " . $cdEvento;
+                      
+        if( $oDados = $this->conexao->fetch_query($sSql) ) {
+            return $oDados->nmEvento;        
+        }
+        else
+            return "erro";
+
+        $this->conexao->fechaConexao();
+
+		
+    }
+
+    public function buscaNmUsuario($cdUsuario){
+        $this->conexao->conectaBanco();
+		
+		$sSql = "SELECT usu.dsNome dsNome
+                   FROM tbusuarios usu                   
+                  WHERE usu.cdUsuario = " . $cdUsuario;
+                      
+        if( $oDados = $this->conexao->fetch_query($sSql) ) {
+            return $oDados->dsNome;        
+        }
+        else
+            return "erro";
+
+        $this->conexao->fechaConexao();
+
+		
     }
 
 }

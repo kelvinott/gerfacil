@@ -70,13 +70,10 @@
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <div class="form-group" class="form-control">
+                    <div class="form-group">
                         <label class="sr-only" for="txbEstado">Estado</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <select id="txbEstado" name="txbEstado" class="form-control" required>
-                            <option value="" disabled selected>Estado</option>
-                            <option value="1">Santa Catarina</option>
-                        </select>
+                            <input type="text" name="txbEstado" class="form-control" id="txbEstado" placeholder="Estado" required autofocus>
                         </div>
                     </div>
                 </div>
@@ -84,14 +81,10 @@
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <div class="form-group" class="form-control">
+                    <div class="form-group">
                         <label class="sr-only" for="txbCidade">Cidade</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <select id="txbCidade" name="txbCidade" class="form-control" required>
-                            <option value="" disabled selected>Cidade</option>
-                            <option value="1">Pomerode</option>
-                            <option value="2">Blumenau</option>
-                        </select>
+                            <input type="text" name="txbCidade" class="form-control" id="txbCidade" placeholder="Cidade" required autofocus>
                         </div>
                     </div>
                 </div>

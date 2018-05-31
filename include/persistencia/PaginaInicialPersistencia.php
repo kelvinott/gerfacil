@@ -30,11 +30,11 @@ class PaginaInicialPersistencia   {
         $pesquisar = $this->getModel()->getPesquisar();
         $inicio = $this->getModel()->getInicio();
         $fim = $this->getModel()->getFim();
+        $idFacebook = $this->getModel()->getIdFacebook();
 
        
-
         if($pesquisar == "") {            
-            if($codigo != "") {
+            if($codigo != "" && $idFacebook == "") {
                 $sSql = "SELECT dados.nmImagem
                             ,dados.nmEvento
                             ,dados.dsEvento
@@ -146,7 +146,7 @@ class PaginaInicialPersistencia   {
                            WHERE (dados.row_number >=" . $inicio. " AND dados.row_number <= " . $fim . ")";
 
         }
-        
+
         $resultado = mysqli_query($this->conexao->getConexao(), $sSql);
         
         if (!$resultado) {            

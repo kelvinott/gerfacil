@@ -1,18 +1,24 @@
 $(document).ready(function() {    
     $("#btnCadastrar").click(function () {
+
         var txbNomeEvento = $("#txbNomeEvento").val();
         var txbDescricao  = $("#txbDescricao").val();
         var txbDataInicio = $("#txbDataInicio").val();
         var txbDataTermino = $("#txbDataTermino").val();
         var txbHoraInicio = $("#txbHoraInicio").val();
         var txbHoraTermino = $("#txbHoraTermino").val();
-        var txbBairro = $("#txbBairro").val();
+        
         var txbRua = $("#txbRua").val();
         var txbNumero = $("#txbNumeroCasa").val();
         var txbComplemento = $("#txbComplemento").val();
         var txbCep = $("#txbCep").val();
-        var txbEstado = $("#txbEstado").val();
-        var txbCidade = $("#txbCidade").val();
+        var estado = $("#txbEstado").val().split("-");
+        var cidade = $("#txbCidade").val().split("-");
+        var bairro = $("#txbBairro").val().split("-");
+        var txbBairro = bairro[0];
+        var txbEstado = estado[0];
+        var txbCidade = cidade[0];
+        
         var txbCategoria = $("#txbCategoria").val();
         var txbImagem  = $("#imagem").val();
         var ckbNotificacao = "";
@@ -22,13 +28,13 @@ $(document).ready(function() {
         else
             ckbNotificacao = "0";
 
-        /*var msgErro = validaCampos(txbNomeEvento, txbDescricao, txbDataInicio, txbDataTermino, txbHoraInicio, txbHoraTermino, txbBairro 
+        var msgErro = validaCampos(txbNomeEvento, txbDescricao, txbDataInicio, txbDataTermino, txbHoraInicio, txbHoraTermino, txbBairro 
                                  , txbRua, txbNumero, txbCep, txbEstado, txbCidade, txbCategoria, txbImagem );
     
         if(msgErro !== ""){
             jbkrAlert.alerta('Alerta!',msgErro);
             return;
-        }*/
+        }
             
     
         $.ajax({
@@ -92,7 +98,110 @@ $(document).ready(function() {
         }).submit();
     });
 
+
+    $('#txbEstado').autocomplete({
+        minLength: 1,
+        maxLength: 10,
+        autoFocus: true,
+        delay: 300,
+        position: {
+          my: 'bottom top',
+          at: 'bottom'
+        },
+        appendTo: '#tabGeral',
+        source: function(request, response){
+          $.ajax({
+            url: '../controller/CadastroEventoController.php',
+            type: 'POST',
+            dataType: 'text',
+            data: {
+              termo: request.term,
+              action: "autocompleteestados"
+            }
+          }).done(function(data){          
+            if(data.length > 0){
+              data = data.split(',');
+              data = data.slice(0, 10);
+              response($.each(data, function(key, item){
+                return({
+                  label: item
+                });
+              }));
+            }
+          });
+        }
+    });
+  
+    $('#txbCidade').autocomplete({
+        minLength: 1,
+        maxLength: 10,
+        autoFocus: true,
+        delay: 300,
+        position: {
+            my: 'bottom top',
+            at: 'bottom'
+        },
+        appendTo: '#tabGeral',
+        source: function(request, response){
+            $.ajax({
+            url: '../controller/CadastroEventoController.php',
+            type: 'POST',
+            dataType: 'text',
+            data: {
+                termo: request.term,
+                action: "autocompletecidades"
+            }
+            }).done(function(data){          
+                if(data.length > 0){
+                    data = data.split(',');
+                    data = data.slice(0, 10);
+                    response($.each(data, function(key, item){
+                        return({
+                            label: item
+                        });
+                    }));
+                }
+            });
+            
+        }
+    });
+
+    $('#txbBairro').autocomplete({
+        minLength: 1,
+        maxLength: 10,
+        autoFocus: true,
+        delay: 300,
+        position: {
+            my: 'bottom top',
+            at: 'bottom'
+        },
+        appendTo: '#tabGeral',
+        source: function(request, response){
+            $.ajax({
+            url: '../controller/CadastroEventoController.php',
+            type: 'POST',
+            dataType: 'text',
+            data: {
+                termo: request.term,
+                action: "autocompletebairros"
+            }
+            }).done(function(data){          
+                if(data.length > 0){
+                    data = data.split(',');
+                    data = data.slice(0, 10);
+                    response($.each(data, function(key, item){
+                        return({
+                            label: item
+                        });
+                    }));
+                }
+            });
+            
+        }
+    });
+
 });
+
     
 function validaCampos(txbNomeEvento, txbDescricao, txbDataInicio, txbDataTermino, txbHoraInicio, txbHoraTermino, txbBairro
                     , txbRua, txbNumero, txbCep, txbEstado, txbCidade, txbCategoria, txbImagem){

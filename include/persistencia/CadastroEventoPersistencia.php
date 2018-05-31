@@ -1,6 +1,7 @@
 <?php
 
 require_once("../../estrutura/conexao.php");
+require_once("../../estrutura/conf_email.php");
 
 class CadastroEventoPersistencia{
     protected $model;
@@ -81,8 +82,10 @@ class CadastroEventoPersistencia{
         $this->getConexao()->query($sSql);
         $this->getConexao()->fechaConexao();
 
-        $this->participarEvento($this->ultimoEvento());
+        $cdUltimoEvento = $this->ultimoEvento();
 
+        $this->participarEvento($cdUltimoEvento);
+        $this->enviarNotificacaoNovoEvento($cdUltimoEvento);
 
     }
 
@@ -123,6 +126,167 @@ class CadastroEventoPersistencia{
 
 		
     }
+
+    public function enviarNotificacaoNovoEvento($cdEvento){
+        $this->conexao->conectaBanco();
+		
+		$estado = $this->getModel()->getEstado();
+		$cidade = $this->getModel()->getCidade(); 
+        $nomeEvento = $this->getModel()->getNomeEvento();
+        
+        $emailUsuario = 'kelvinott3112@gmail.com';
+		$assunto = "Novo evento para sua cidade - " . $nomeEvento;
+
+		$sSql = "SELECT usu.dsEmail dsEmail
+					   ,usu.dsNome dsNome
+				   FROM tbusuarios usu
+			      WHERE usu.cdEstado = " .  $estado . "
+				    AND usu.cdCidade  = " . $cidade . "
+					AND usu.idNotificacao = 1";
+   
+		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
+
+		while ($linha = mysqli_fetch_assoc($resultado)) {
+			
+			$mensagem = $linha["dsNome"] . " o evento " . $nomeEvento . " foi adicionado a sua cidade </br> <a href='../../include/view/EventoView.php?cdEvento=" . $cdEvento ."' target='_blank'>Clique Aqui</a> para conhecer.";
+            
+            echo $mensagem;
+            /*$objemail->enviaEmail($linha["dsEmail"],$mensagem,$assunto,$emailUsuario,null);*/
+			
+		}
+        
+        $this->conexao->fechaConexao();
+
+		
+    }
+    
+    public function buscaEstadosAutoComplete(){
+		$this->conexao->conectaBanco();
+
+		$termo = $this->getModel()->getTermo();
+
+		$sSql = "SELECT CONCAT(est.cdEstado,' - ',est.nmEstado) nmEstado
+					FROM tbestado est
+					WHERE nmEstado LIKE '%". $termo ."%'";
+
+		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
+
+		$qtdLinhas = mysqli_num_rows($resultado);
+
+		$contador = 0;
+
+		$retorno = null;
+
+		while ($linha = mysqli_fetch_assoc($resultado)) {
+
+			$contador = $contador + 1;
+
+			$retorno = $retorno . utf8_encode($linha["nmEstado"]);
+
+			//Para não concatenar a virgula no final do json
+			if($qtdLinhas != $contador)
+				$retorno = $retorno . ',';
+
+		}
+
+		$this->conexao->fechaConexao();
+
+		return $retorno;
+
+	}
+    
+	public function buscaCidadesAutoComplete(){
+		$this->conexao->conectaBanco();
+
+		$termo = $this->getModel()->getTermo();
+
+		$sSql = "SELECT CONCAT(cid.cdCidade,' - ',cid.nmCidade) nmCidade
+					FROM tbcidades cid
+					WHERE nmCidade LIKE '%". $termo ."%'";
+
+		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
+
+		$qtdLinhas = mysqli_num_rows($resultado);
+
+		$contador = 0;
+
+		$retorno = null;
+
+		while ($linha = mysqli_fetch_assoc($resultado)) {
+
+			$contador = $contador + 1;
+
+			$retorno = $retorno . utf8_encode($linha["nmCidade"]);
+
+			//Para não concatenar a virgula no final do json
+			if($qtdLinhas != $contador)
+				$retorno = $retorno . ',';
+
+		}
+
+		$this->conexao->fechaConexao();
+
+		return $retorno;
+
+    }
+    
+    public function buscaBairrosAutoComplete(){
+		$this->conexao->conectaBanco();
+
+		$termo = $this->getModel()->getTermo();
+
+		$sSql = "SELECT CONCAT(bai.cdBairro,' - ',bai.nmBairro) nmBairro
+					FROM tbBairros bai
+					WHERE nmBairro LIKE '%". $termo ."%'";
+
+		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
+
+		$qtdLinhas = mysqli_num_rows($resultado);
+
+		$contador = 0;
+
+		$retorno = null;
+
+		while ($linha = mysqli_fetch_assoc($resultado)) {
+
+			$contador = $contador + 1;
+
+			$retorno = $retorno . utf8_encode($linha["nmBairro"]);
+
+			//Para não concatenar a virgula no final do json
+			if($qtdLinhas != $contador)
+				$retorno = $retorno . ',';
+
+		}
+
+		$this->conexao->fechaConexao();
+
+		return $retorno;
+
+    }
+    
+    public function validaInformacoesPerfil(){
+		$this->conexao->conectaBanco();
+		$usuario = $this->getModel()->getUsuario();
+		
+		$sSql = "SELECT cdUsuario cdUsuario
+                   FROM tbusuarios
+                  WHERE cdUsuario = " . $usuario . "
+                    AND (cdEstado IS NULL
+                     OR cdCidade IS NULL
+                     OR dsEmail IS NULL
+                     OR dtNascimento IS NULL)"; 
+                    
+        if( $oDados = $this->conexao->fetch_query($sSql) ) {
+            return $oDados->cdUsuario;        
+        }
+        else
+            return "";
+
+        $this->conexao->fechaConexao();
+
+		
+    }    
 
 }
 

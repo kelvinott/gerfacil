@@ -105,28 +105,22 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-3">
-                    <div class="form-group" class="form-control">
+                    <div class="form-group">
                         <label class="sr-only" for="txbEstado">Estado</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <select id="txbEstado" name="txbEstado" class="form-control" required>
-                            <option value="" disabled selected>Estado</option>
-                            <option value="1">Santa Catarina</option>
-                        </select>
+                            <input type="text" name="txbEstado" class="form-control" id="txbEstado" placeholder="Estado" required autofocus>
                         </div>
                     </div>
-                </div>
+                </div>                            
                 <div class="col-md-3">
-                    <div class="form-group" class="form-control">
+                    <div class="form-group">
                         <label class="sr-only" for="txbCidade">Cidade</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <select id="txbCidade" name="txbCidade" class="form-control" required>
-                            <option value="" disabled selected>Cidade</option>
-                            <option value="1">Pomerode</option>
-                        </select>
+                            <input type="text" name="txbCidade" class="form-control" id="txbCidade" placeholder="Cidade" required autofocus>
                         </div>
                     </div>
                 </div>
@@ -197,7 +191,7 @@
             <div class="row" style="padding-top: 1rem; padding-bottom: 1rem;">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <button type="button" id="btnCadastrar" class="btn btn-primary"> Cadastrar</button>
+                    <button type="button" id="btnCadastrar" class="btn btn-success"> Incluir</button>
                 </div>
             </div>        
     </div>

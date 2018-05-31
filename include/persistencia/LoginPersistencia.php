@@ -25,9 +25,12 @@ class LoginPersistencia {
 	public function validaLogin(){
 		$email = $this->getModel()->getEmail();
 		$senha = $this->getModel()->getSenha();
+		$id = $this->getModel()->getId();
+		$usuario = $this->getModel()->getUsuario();
+
 		//$senha = $this->criptografaSenha($senha);
-		
-		$sSql = "select  usu.cdUsuario cdUsuario
+		if($id == "") {
+			$sSql = "select  usu.cdUsuario cdUsuario
                         ,usu.dsNome dsNome
                         ,usu.dsSobrenome dsSobrenome
                         ,usu.dsSenha dsSenha
@@ -36,17 +39,37 @@ class LoginPersistencia {
                     FROM tbusuarios usu
                    WHERE usu.dsEmail = '" . $email . "'" .
                    " AND usu.dsSenha = '" . $senha . "'";
-        
+		} else {
+			$sSql = "select  usu.cdUsuario cdUsuario
+						,usu.dsNome dsNome  
+						,usu.dsSobrenome dsSobrenome                      
+                    FROM tbusuarios usu
+                   WHERE usu.cdUsuario = '" . $usuario . "'";
+		}
+		
+		
 		$this->getConexao()->conectaBanco();
 
 		if( $oDados = $this->getConexao()->fetch_query($sSql) ) {
-			$_SESSION["cdUsuario"] = $oDados->cdUsuario;
-			$_SESSION["dsNome"] = $oDados->dsNome;
-			$_SESSION["dsSobrenome"] = $oDados->dsSobrenome;
-			$_SESSION["dsEmail"] = $oDados->dsEmail;
-			$logado = true;
+			
+			if($id == "") {
+				
+				$_SESSION["cdUsuario"] = $oDados->cdUsuario;
+				$_SESSION["dsNome"] = $oDados->dsNome;
+				$_SESSION["dsSobrenome"] = $oDados->dsSobrenome;
+				$_SESSION["dsEmail"] = $oDados->dsEmail;
+				$logado = true;
+			} else {
+				
+				$_SESSION["cdUsuario"] = $oDados->cdUsuario;
+				$_SESSION["dsNome"] = $oDados->dsNome;
+				$_SESSION["dsSobrenome"] = $oDados->dsSobrenome;
+				$_SESSION["idFacebook"] = $id;
+				$logado = true;
+			}		
 			
 		} else {
+			
 			Session_destroy();
 
 			$logado = false;

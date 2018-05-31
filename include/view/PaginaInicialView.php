@@ -1,7 +1,8 @@
 <?php
 session_start();
-$usuarioLogado = $_SESSION["cdUsuario"]; 
-$_SESSION['userid'] = $usuarioLogado;
+
+if(isset($_SESSION["cdUsuario"])) 
+  $_SESSION['userid'] = $_SESSION["cdUsuario"]; 
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,6 +27,7 @@ $_SESSION['userid'] = $usuarioLogado;
     <script type="text/javascript" src="../../js/geral.js"></script>
     
     
+    
     <!-- Custom styles for this template -->
     <link href="../../css/3-col-portfolio.css" rel="stylesheet">
   <!-- start orangechat code -->
@@ -40,26 +42,65 @@ $_SESSION['userid'] = $usuarioLogado;
           cookie     : true,
           xfbml      : true,
           version    : 'v2.12'
-        });
+      });
           
         FB.AppEvents.logPageView();   
-          
       };
+
+      function checkLoginState() {
+          FB.getLoginStatus(function(response) {
+
+            if(response.status === 'connected'){
+              testAPI();
+            }
+
+            statusChangeCallback(response);
+          });
+        }     
 
       (function(d, s, id){
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {return;}
         js = d.createElement(s); js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        js.src = "https://connect.facebook.net/pt_BR/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
+      
 
-     
+      function testAPI() {        
+        FB.api('/me', {fields: 'short_name,last_name',}, function(response) {          
+          //CADASTRO DO USUÁRIO
+          $.ajax({
+              //Tipo de envio POST ou GET
+              type: "POST",
+              dataType: "text",
+              data: {
+                  id: response.id,
+                  nome: response.short_name,              
+                  sobrenome: response.last_name,  
+                  action: "cadastrar"
+              },
+
+              url: "../controller/CadastroController.php",
+
+              //Se der tudo ok no envio...
+              success: function (dados) {            
+                var json = $.parseJSON(dados);
+
+                if (json.status == 0) {
+                  $(location).attr('href', 'PaginaInicialView.php'); 
+                }
+                  
+              }
+          });          
+        });
+      }
     </script>
 
   </head>
 
   <body>
+    <input type="hidden" id="hidflginfo"></input>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -77,7 +118,7 @@ $_SESSION['userid'] = $usuarioLogado;
             </li>            
             <li class="nav-item" <?php if(!isset($_SESSION["dsNome"])){ echo 'style="display:inherit;"'; } else {  echo 'style="display:none"'; } ?>>
               <div class="fb-login-button" data-max-rows="1" data-size="small" data-button-type="login_with" 
-              data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+              data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" onlogin="checkLoginState();"></div>
             </li>
           </ul>
           <a id="btnCadastroEvento" <?php if(!isset($_SESSION["dsNome"])){ echo 'style="display:none; padding-bottom: 0; padding-top: 0; padding-left: 0; padding-right: 20px;"'; } else {  echo 'style="display:block; padding-bottom: 0; padding-top: 0; padding-left: 0; padding-right: 20px;"'; } ?>  class="nav-link" href="#"><img style="width:40px;" class="card-img-top" src="../../imagens/event_icon.png" title="Adicionar novo Evento" alt=""></a>
@@ -87,16 +128,16 @@ $_SESSION['userid'] = $usuarioLogado;
                 <ul class="dropdown-menu dropdown-menu-right" role="menu">
                   <li>
                     <a class="dropdown-item" id="btnMeusEventos" id="perfil" href="#"> Meus Eventos</a>
-                  </li >
+                  </li>
                   <li>
                     <a class="dropdown-item" id="btnEditarPerfil" id="perfil" href="#"> Editar Perfil</a>
-                  </li >
-                  <li >
+                  </li>
+                  <li <?php if(isset($_SESSION["idFacebook"])){ echo 'style="display:none;"'; } else {  echo 'style="display:block"'; } ?>>
                     <a class="dropdown-item" id="btnAlterarSenha" id="perfil" href="#"> Alterar Senha</a>
                   </li >        
                   <div class="dropdown-divider"></div>
-                  <li >
-                    <a class="dropdown-item"href="Sair.php">Sair</a>
+                  <li>
+                    <a class="dropdown-item" id="btnSair" href="Sair.php">Sair</a>
                   </li>
                 </ul>
             </li>              

@@ -1,6 +1,7 @@
 <?php
 
 require_once("../../estrutura/conexao.php");
+require_once("../../estrutura/conf_email.php");
 
 class CadastroPersistencia{
 	protected $model;
@@ -26,9 +27,12 @@ class CadastroPersistencia{
 	}
 
 	public function Cadastrar(){
+		
+		$cdUsuarioFacebook = $this->existeUsuarioFacebook();
 		$this->getConexao()->conectaBanco();
 
-        $email = $this->getModel()->getEmail();
+		$id = $this->getModel()->getId();
+		$email = $this->getModel()->getEmail();
 		$nome = $this->getModel()->getNome();
 		$sobrenome = $this->getModel()->getSobrenome();
 		$senha = $this->getModel()->getSenha();
@@ -36,20 +40,41 @@ class CadastroPersistencia{
 		$estado = $this->getModel()->getEstado();
 		$cidade = $this->getModel()->getCidade();
 		$notificacao = $this->getModel()->getNotificacao();
+
+		if($id == ""){
+			$sSql = "INSERT INTO tbusuarios (dsEmail, dsNome, dsSobreNome, dsSenha, dtNascimento, cdEstado, cdCidade, idNotificacao)
+									VALUES ('". $email ."'
+									,'". $nome ."'
+									,'". $sobrenome ."'
+									,'". $senha ."'
+									,STR_TO_DATE('" . $nascimento . "','%d/%m/%Y') 
+									,'". $estado ."'
+									,'". $cidade ."'
+									,'". $notificacao ."')";
+			
+			$this->getConexao()->query($sSql);
+
+			$this->getConexao()->fechaConexao();
 	
-		$sSql = "INSERT INTO tbusuarios (dsEmail, dsNome, dsSobreNome, dsSenha, dtNascimento, cdEstado, cdCidade, idNotificacao)
-		VALUES ('". $email ."'
-		,'". $nome ."'
-		,'". $sobrenome ."'
-		,'". $senha ."'
-		,STR_TO_DATE('" . $nascimento . "','%d/%m/%Y') 
-		,'". $estado ."'
-		,'". $cidade ."'
-		,'". $notificacao ."')";
+			return $this->ultimoUsuario();
 
-		$this->getConexao()->query($sSql);
+		} else {			
+			if($cdUsuarioFacebook == ""){
 
-		$this->getConexao()->fechaConexao();
+				$sSql = "INSERT INTO tbusuarios (idfacebook, dsSobreNome, dsNome)
+										VALUES ('". $id ."'		
+												,'". $sobrenome ."'							
+												,'". $nome ."')";
+
+				$this->getConexao()->query($sSql);
+
+				$this->getConexao()->fechaConexao();
+		
+				return $this->ultimoUsuario();											
+			} else {
+				return $cdUsuarioFacebook;	
+			}
+		}
 
 	}
 
@@ -70,7 +95,7 @@ class CadastroPersistencia{
             
         $this->conexao->fechaConexao();
 
-		return $valida;
+	  	return $valida;
 	}
 	
 	public function buscaEstadosAutoComplete(){
@@ -142,6 +167,44 @@ class CadastroPersistencia{
 		return $retorno;
 
 	}
+
+	public function ultimoUsuario(){
+        $this->conexao->conectaBanco();
+		
+		$sSql = "SELECT MAX(usu.cdUsuario) cdUsuario
+                   FROM tbusuarios usu";
+                      
+        if( $oDados = $this->conexao->fetch_query($sSql) ) {
+            return $oDados->cdUsuario;        
+        }
+        else
+            return "erro";
+
+        $this->conexao->fechaConexao();
+
+		
+	}
+	
+
+	public function existeUsuarioFacebook(){
+		$this->conexao->conectaBanco();
+		$id = $this->getModel()->getId();
+		
+		$sSql = "SELECT usu.cdUsuario cdUsuario
+				   FROM tbusuarios usu
+				  WHERE usu.idFacebook = '" . $id . "'";
+                    
+        if( $oDados = $this->conexao->fetch_query($sSql) ) {
+            return $oDados->cdUsuario;        
+        }
+        else
+            return "";
+
+        $this->conexao->fechaConexao();
+
+		
+    }
+
 	
 
 }

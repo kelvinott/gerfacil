@@ -53,16 +53,20 @@ session_start();
         var js, fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {return;}
         js = d.createElement(s); js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        js.src = "https://connect.facebook.net/pt_BR/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
 
      
     </script>
 
+    <div id="fb-root"></div>
+
+
   </head>
 
   <body>
+  <input type="hidden" id="hidflginfo"></input>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -217,7 +221,7 @@ session_start();
       </div>
 
       <div style="padding:0px;" class="container border-top border-left border-right event-section" id="comentarios">
-        <p class="m-0 text-center text-black">Comentários aqui</p>  
+      <div id="fbComentarios" class="fb-comments" data-href="https://developers.facebook.com/docs/plugins/cdEvento#" data-width="1000" data-numposts="5"></div>
       </div>
       
       <div id="map"></div>

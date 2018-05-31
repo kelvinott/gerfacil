@@ -108,13 +108,18 @@ $(document).ready(function(){
         var txbDataTermino = $("#txbDataTermino").val();
         var txbHoraInicio = $("#txbHoraInicio").val();
         var txbHoraTermino = $("#txbHoraTermino").val();
-        var txbBairro = $("#txbBairro").val();
         var txbRua = $("#txbRua").val();
         var txbNumero = $("#txbNumeroCasa").val();
         var txbComplemento = $("#txbComplemento").val();
         var txbCep = $("#txbCep").val();
-        var txbEstado = $("#txbEstado").val();
-        var txbCidade = $("#txbCidade").val();
+
+        var estado = $("#txbEstado").val().split("-");
+        var cidade = $("#txbCidade").val().split("-");
+        var bairro = $("#txbBairro").val().split("-");
+        var txbBairro = bairro[0];
+        var txbEstado = estado[0];
+        var txbCidade = cidade[0];
+
         var txbCategoria = $("#txbCategoria").val();
         var txbImagem  = $("#imagem").val();
 
@@ -177,6 +182,107 @@ $(document).ready(function(){
                     jbkrAlert.alerta('Alerta!',dados);
             }    
         }).submit();
+    });
+
+    $('#txbEstado').autocomplete({
+        minLength: 1,
+        maxLength: 10,
+        autoFocus: true,
+        delay: 300,
+        position: {
+          my: 'bottom top',
+          at: 'bottom'
+        },
+        appendTo: '#tabGeral',
+        source: function(request, response){
+          $.ajax({
+            url: '../controller/MeusEventosController.php',
+            type: 'POST',
+            dataType: 'text',
+            data: {
+              termo: request.term,
+              action: "autocompleteestados"
+            }
+          }).done(function(data){          
+            if(data.length > 0){
+              data = data.split(',');
+              data = data.slice(0, 10);
+              response($.each(data, function(key, item){
+                return({
+                  label: item
+                });
+              }));
+            }
+          });
+        }
+    });
+  
+    $('#txbCidade').autocomplete({
+        minLength: 1,
+        maxLength: 10,
+        autoFocus: true,
+        delay: 300,
+        position: {
+            my: 'bottom top',
+            at: 'bottom'
+        },
+        appendTo: '#tabGeral',
+        source: function(request, response){
+            $.ajax({
+            url: '../controller/MeusEventosController.php',
+            type: 'POST',
+            dataType: 'text',
+            data: {
+                termo: request.term,
+                action: "autocompletecidades"
+            }
+            }).done(function(data){          
+                if(data.length > 0){
+                    data = data.split(',');
+                    data = data.slice(0, 10);
+                    response($.each(data, function(key, item){
+                        return({
+                            label: item
+                        });
+                    }));
+                }
+            });
+            
+        }
+    });
+
+    $('#txbBairro').autocomplete({
+        minLength: 1,
+        maxLength: 10,
+        autoFocus: true,
+        delay: 300,
+        position: {
+            my: 'bottom top',
+            at: 'bottom'
+        },
+        appendTo: '#tabGeral',
+        source: function(request, response){
+            $.ajax({
+            url: '../controller/MeusEventosController.php',
+            type: 'POST',
+            dataType: 'text',
+            data: {
+                termo: request.term,
+                action: "autocompletebairros"
+            }
+            }).done(function(data){          
+                if(data.length > 0){
+                    data = data.split(',');
+                    data = data.slice(0, 10);
+                    response($.each(data, function(key, item){
+                        return({
+                            label: item
+                        });
+                    }));
+                }
+            });
+            
+        }
     });
 
 });
@@ -260,16 +366,16 @@ function carregaEventos(cdEvento){
                     $("#txbDataInicio").val(eventos.dtInicio);
                     $("#txbDataTermino").val(eventos.dtTermino);
                     $("#txbHoraInicio").val(eventos.hrInicio);
-                    $("#txbHoraTermino").val(eventos.hrTermino);
-                    $("#txbBairro").val(eventos.nmBairro);
+                    $("#txbHoraTermino").val(eventos.hrTermino);                    
                     $("#txbRua").val(eventos.nmRua);
                     $("#txbNumeroCasa").val(eventos.nrLocal);
                     $("#txbComplemento").val(eventos.dsComplemento);
-                    $("#txbCep").val(eventos.nrCep);
-                    $("#txbEstado").val(eventos.cdEstado);
-                    $("#txbCidade").val(eventos.cdCidade);
+                    $("#txbCep").val(eventos.nrCep);                    
                     $("#txbCategoria").val(eventos.cdCategoria);
-
+                    
+                    $("#txbEstado").val(eventos.cdEstado + " - " + eventos.nmEstado);
+                    $("#txbCidade").val(eventos.cdCidade + " - " + eventos.nmCidade); 
+                    $("#txbBairro").val(eventos.cdBairro + " - " + eventos.nmBairro);
                 }
             }
            

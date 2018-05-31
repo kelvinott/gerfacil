@@ -12,11 +12,15 @@ switch($_POST["action"]){
 
         $model->setInicio($_POST["hidInicio"]);
         $model->setFim($_POST["hidFim"]);
+        
+        if(isset($_SESSION["idFacebook"])) 
+            $model->setidFacebook($_SESSION["idFacebook"]);
+
 
         if(isset($_POST["pesquisar"])) {
             $model->setPesquisar($_POST["pesquisar"]);
 
-            if (isset($_SESSION["cdUsuario"])){
+            if (isset($_SESSION["cdUsuario"]) && !isset($_SESSION["idFacebook"])){
                 
                 $model->setCodigo($_SESSION["cdUsuario"]);
 
@@ -34,7 +38,7 @@ switch($_POST["action"]){
 
         } else {
 
-            if (isset($_SESSION["cdUsuario"])){
+            if (isset($_SESSION["cdUsuario"])  && !isset($_SESSION["idFacebook"])){
                 
                 $model->setCodigo($_SESSION["cdUsuario"]);
 

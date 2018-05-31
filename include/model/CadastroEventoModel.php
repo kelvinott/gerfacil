@@ -19,6 +19,7 @@ class CadastroEventoModel {
     private $usuario;
     private $nmImagem;
     private $notificacao;
+    private $termo;
 
     public function setNomeEvento($nomeEvento){
 
@@ -205,6 +206,14 @@ class CadastroEventoModel {
 
 	public function getNotificacao(){
 		return $this->notificacao;
+    }
+    
+    public function setTermo($termo){
+		$this->termo = $termo;
+	}
+
+	public function getTermo(){
+		return $this->termo;
 	}
 }
 

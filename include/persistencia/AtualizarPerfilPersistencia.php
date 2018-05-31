@@ -36,10 +36,11 @@ class AtualizarPerfilPersistencia   {
                     SET dsEmail = '". $email ."'
                         ,dsNome = '". $nome ."'
                         ,dsSobrenome = '". $sobrenome ."'                    
-                        ,dtNascimento = '". $nascimento ."'
+                        ,dtNascimento = STR_TO_DATE('" . $nascimento . "','%d/%m/%Y') 
                         ,cdEstado = ". $estado ."
-                        ,cdCidade = ". $cidade ;
-
+						,cdCidade = ". $cidade ."
+				  WHERE cdUsuario = " . $codigo;
+		
         $this->conexao->query($sSql);
 
 		$this->conexao->fechaConexao();
@@ -57,10 +58,16 @@ class AtualizarPerfilPersistencia   {
                         ,usu.dtNascimento                        
                         ,usu.cdEstado
                         ,usu.cdCidade
-                    FROM tbusuarios usu                    
+						,est.nmEstado
+						,cid.nmCidade
+                    FROM tbusuarios usu 
+			   LEFT JOIN tbestado est
+					  ON est.cdEstado = usu.cdEstado
+			   LEFT JOIN tbcidades cid
+					  ON cid.cdCidade = usu.cdCidade
                     WHERE usu.cdUsuario = " . $codigo;
 
-        $resultado = mysqli_query($this->conexao->getConexao(), $sSql);
+		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
 
         if (!$resultado) {
             die(mysqli_error($this->conexao->getConexao()));
@@ -79,7 +86,9 @@ class AtualizarPerfilPersistencia   {
                 $retorno = $retorno . '{"dsEmail": "'.$linha["dsEmail"].'"
                                       , "dsNome" : "'.$linha["dsNome"].'"
                                       , "dsSobrenome" : "'.$linha["dsSobrenome"].'"
-                                      , "dtNascimento" : "'.$linha["dtNascimento"].'"
+									  , "dtNascimento" : "'.$linha["dtNascimento"].'"
+									  , "nmEstado" : "'.$linha["nmEstado"].'"
+									  , "nmCidade" : "'.$linha["nmCidade"].'"
                                       , "cdEstado" : "'.$linha["cdEstado"].'"
                                       , "cdCidade" : "'.$linha["cdCidade"].'"}';
 
@@ -97,6 +106,76 @@ class AtualizarPerfilPersistencia   {
 
         
     }
+
+    public function buscaEstadosAutoComplete(){
+		$this->conexao->conectaBanco();
+
+		$termo = $this->getModel()->getTermo();
+
+		$sSql = "SELECT CONCAT(est.cdEstado,' - ',est.nmEstado) nmEstado
+					FROM tbestado est
+					WHERE nmEstado LIKE '%". $termo ."%'";
+
+		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
+
+		$qtdLinhas = mysqli_num_rows($resultado);
+
+		$contador = 0;
+
+		$retorno = null;
+
+		while ($linha = mysqli_fetch_assoc($resultado)) {
+
+			$contador = $contador + 1;
+
+			$retorno = $retorno . utf8_encode($linha["nmEstado"]);
+
+			//Para não concatenar a virgula no final do json
+			if($qtdLinhas != $contador)
+				$retorno = $retorno . ',';
+
+		}
+
+		$this->conexao->fechaConexao();
+
+		return $retorno;
+
+	}
+
+	public function buscaCidadesAutoComplete(){
+		$this->conexao->conectaBanco();
+
+		$termo = $this->getModel()->getTermo();
+
+		$sSql = "SELECT CONCAT(cid.cdCidade,' - ',cid.nmCidade) nmCidade
+					FROM tbcidades cid
+					WHERE nmCidade LIKE '%". $termo ."%'";
+
+		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
+
+		$qtdLinhas = mysqli_num_rows($resultado);
+
+		$contador = 0;
+
+		$retorno = null;
+
+		while ($linha = mysqli_fetch_assoc($resultado)) {
+
+			$contador = $contador + 1;
+
+			$retorno = $retorno . utf8_encode($linha["nmCidade"]);
+
+			//Para não concatenar a virgula no final do json
+			if($qtdLinhas != $contador)
+				$retorno = $retorno . ',';
+
+		}
+
+		$this->conexao->fechaConexao();
+
+		return $retorno;
+
+	}
     
     
 

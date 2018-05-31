@@ -2,11 +2,23 @@ $(document).ready(function(){
   var map;
   initializeMap();
   carregaEventos();
-  
+
+  validaInformacoesPerfil();
+
   $("#btnGerfacil").click(function(){
     $(location).attr('href', 'PaginaInicialView.php');         
   });
-
+  
+  $("#btnSair").click(function(){
+    FB.getLoginStatus(function (response) {
+      
+      if (response && response.status === 'connected') {
+        FB.logout();
+        $(location).attr('href', 'PaginaInicialView.php');
+      }
+    });
+    
+  });
 
   $("#btnLoginTela").click(function(){
     $.ajax({
@@ -29,21 +41,28 @@ $(document).ready(function(){
       url: "../view/CadastroView.php",
       //Se der tudo ok no envio...
       success: function (callback) {
+        
         $("#divPrincipal").html(callback);
       }
     });	
   });
+
   $("#btnCadastroEvento").click(function(){
-    $.ajax({
-      //Tipo de envio POST ou GET
-      type: "POST",
-      dataType: "text",
-      url: "../view/CadastroEventoView.php",
-      //Se der tudo ok no envio...
-      success: function (callback) {
-        $("#divPrincipal").html(callback);
+
+      if($("#hidflginfo").val() != ""){
+        jbkrAlert.alerta('Alerta!',"Para utilizar essa funcionalidade é necessário atualizar seu perfil.");
+      } else {
+        $.ajax({
+          //Tipo de envio POST ou GET
+          type: "POST",
+          dataType: "text",
+          url: "../view/CadastroEventoView.php",
+          //Se der tudo ok no envio...
+          success: function (callback) {
+            $("#divPrincipal").html(callback);
+          }
+        });    	
       }
-    });	
   });
 
   $("#btnAlterarSenha").click(function(){
@@ -312,4 +331,24 @@ function redirecionarCEP(dados){
     
   }
 
+}
+
+function validaInformacoesPerfil(){
+    
+  $.ajax({
+      //Tipo de envio POST ou GET
+      type: "POST",
+      dataType: "text",
+      data: {          
+        action: "validainformacoesperfil"
+      },
+
+      url: "../controller/CadastroEventoController.php",
+
+      //Se der tudo ok no envio...
+      success: function (dados) {            
+        $("#hidflginfo").val(dados);          
+
+      }
+    });
 }

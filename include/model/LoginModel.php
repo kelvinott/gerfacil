@@ -2,8 +2,10 @@
   
 class LoginModel {
 	
+	private $usuario;
 	private $email;
 	private $senha;
+	private $id;
 	
 	public function setEmail($email){
 		$this->email = $email;
@@ -17,6 +19,22 @@ class LoginModel {
 	}
 	public function getSenha(){
 		return $this->senha;
+	}
+
+	public function setId($id){
+		$this->id = $id;
+	}
+
+	public function getId(){
+		return $this->id;
+	}
+
+	public function setUsuario($usuario){
+		$this->usuario = $usuario;
+	}
+
+	public function getUsuario(){
+		return $this->usuario;
 	}
 }  
 ?>

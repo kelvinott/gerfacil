@@ -42,11 +42,12 @@ class MeusEventosPersistencia   {
                            ,cid.nmCidade nmCidade
                            ,est.cdEstado cdEstado
                            ,cid.cdCidade cdCidade
-                           ,eve.nmBairro nmBairro
+                           ,eve.cdBairro cdBairro
                            ,eve.nmRua nmRua
                            ,eve.nrLocal nrLocal
                            ,eve.dsComplemento dsComplemento
                            ,uev.tbPerfis_cdPerfil cdPerfil
+                           ,bai.nmBairro nmBairro
                        FROM tbusuarios_tbeventos uev
                        JOIN tbeventos eve
                          ON eve.cdEvento = uev.cdEvento
@@ -56,6 +57,8 @@ class MeusEventosPersistencia   {
                          ON est.cdEstado = eve.cdEstado
                        JOIN tbCidades cid
                          ON cid.cdCidade = eve.cdCidade 
+                       JOIN tbbairros bai
+                         ON bai.cdBairro = eve.cdBairro
                       WHERE uev.cdUsuario = " . $cdUsuario . "
                       ORDER BY dtInicio, hrInicio";
         } else {
@@ -73,11 +76,12 @@ class MeusEventosPersistencia   {
                            ,cid.nmCidade nmCidade
                            ,est.cdEstado cdEstado
                            ,cid.cdCidade cdCidade
-                           ,eve.nmBairro nmBairro
+                           ,eve.cdBairro cdBairro
                            ,eve.nmRua nmRua
                            ,eve.nrLocal nrLocal
                            ,eve.dsComplemento dsComplemento
                            ,3 cdPerfil
+                           ,bai.nmBairro nmBairro
                        FROM tbeventos eve                      
                        JOIN tbcategorias cat
                          ON cat.cdCategoria = eve.cdCategoria
@@ -85,10 +89,12 @@ class MeusEventosPersistencia   {
                          ON est.cdEstado = eve.cdEstado
                        JOIN tbCidades cid
                          ON cid.cdCidade = eve.cdCidade 
+                       JOIN tbbairros bai
+                         ON bai.cdBairro = eve.cdBairro 
                       WHERE eve.cdEvento = " . $cdEvento . "
                       ORDER BY dtInicio, hrInicio ";
-        }
-
+        }        
+        
         $resultado = mysqli_query($this->conexao->getConexao(), $sSql);
 
         if (!$resultado) {
@@ -123,6 +129,7 @@ class MeusEventosPersistencia   {
                                       , "dsComplemento" : "'.$linha["dsComplemento"].'"
                                       , "cdCategoria" : "'.$linha["cdCategoria"].'"
                                       , "cdPerfil" : "'.$linha["cdPerfil"].'"
+                                      , "cdBairro" : "'.$linha["cdBairro"].'"
                                       , "dsCategoria" : "'.$linha["dsCategoria"].'"}';
 
                 //Para não concatenar a virgula no final do json
@@ -308,6 +315,111 @@ class MeusEventosPersistencia   {
             $this->getConexao()->fechaConexao();
         }        
     }
+
+    public function buscaEstadosAutoComplete(){
+		$this->conexao->conectaBanco();
+
+		$termo = $this->getModel()->getTermo();
+
+		$sSql = "SELECT CONCAT(est.cdEstado,' - ',est.nmEstado) nmEstado
+					FROM tbestado est
+					WHERE nmEstado LIKE '%". $termo ."%'";
+
+		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
+
+		$qtdLinhas = mysqli_num_rows($resultado);
+
+		$contador = 0;
+
+		$retorno = null;
+
+		while ($linha = mysqli_fetch_assoc($resultado)) {
+
+			$contador = $contador + 1;
+
+			$retorno = $retorno . utf8_encode($linha["nmEstado"]);
+
+			//Para não concatenar a virgula no final do json
+			if($qtdLinhas != $contador)
+				$retorno = $retorno . ',';
+
+		}
+
+		$this->conexao->fechaConexao();
+
+		return $retorno;
+
+	}
+    
+	public function buscaCidadesAutoComplete(){
+		$this->conexao->conectaBanco();
+
+		$termo = $this->getModel()->getTermo();
+
+		$sSql = "SELECT CONCAT(cid.cdCidade,' - ',cid.nmCidade) nmCidade
+					FROM tbcidades cid
+					WHERE nmCidade LIKE '%". $termo ."%'";
+
+		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
+
+		$qtdLinhas = mysqli_num_rows($resultado);
+
+		$contador = 0;
+
+		$retorno = null;
+
+		while ($linha = mysqli_fetch_assoc($resultado)) {
+
+			$contador = $contador + 1;
+
+			$retorno = $retorno . utf8_encode($linha["nmCidade"]);
+
+			//Para não concatenar a virgula no final do json
+			if($qtdLinhas != $contador)
+				$retorno = $retorno . ',';
+
+		}
+
+		$this->conexao->fechaConexao();
+
+		return $retorno;
+
+    }
+    
+    public function buscaBairrosAutoComplete(){
+		$this->conexao->conectaBanco();
+
+		$termo = $this->getModel()->getTermo();
+
+		$sSql = "SELECT CONCAT(bai.cdBairro,' - ',bai.nmBairro) nmBairro
+					FROM tbBairros bai
+					WHERE nmBairro LIKE '%". $termo ."%'";
+
+		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
+
+		$qtdLinhas = mysqli_num_rows($resultado);
+
+		$contador = 0;
+
+		$retorno = null;
+
+		while ($linha = mysqli_fetch_assoc($resultado)) {
+
+			$contador = $contador + 1;
+
+			$retorno = $retorno . utf8_encode($linha["nmBairro"]);
+
+			//Para não concatenar a virgula no final do json
+			if($qtdLinhas != $contador)
+				$retorno = $retorno . ',';
+
+		}
+
+		$this->conexao->fechaConexao();
+
+		return $retorno;
+
+	}
 }
 	
 ?>

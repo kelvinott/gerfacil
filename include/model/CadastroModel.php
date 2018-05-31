@@ -11,6 +11,7 @@ class CadastroModel {
 	private $cidade;
 	private $notificacao;
 	private $termo;
+	private $id;
 
     public function setEmail($email){
 		$this->email = $email;
@@ -82,6 +83,14 @@ class CadastroModel {
 
 	public function getTermo(){
 		return $this->termo;
+	}
+
+	public function setId($id){
+		$this->id = $id;
+	}
+
+	public function getId(){
+		return $this->id;
 	}
 
 }

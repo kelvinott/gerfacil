@@ -135,6 +135,48 @@ if(!isset($_POST["action"])) {
                         $persistencia->atualizarAtividade();
     
                         break;
+                case 'autocompleteestados':
+                        $model = new MeusEventosModel();
+                        
+                        $model->setTermo($_POST["termo"]);
+                        
+                        $persistencia = new MeusEventosPersistencia();
+                
+                        $persistencia->setModel($model);
+                
+                        $retorno = $persistencia->buscaEstadosAutoComplete();
+                
+                        echo $retorno;
+                
+                        break;		
+                case 'autocompletecidades':
+                        $model = new MeusEventosModel();
+                        
+                        $model->setTermo($_POST["termo"]);
+                        
+                        $persistencia = new MeusEventosPersistencia();
+                
+                        $persistencia->setModel($model);
+                
+                        $retorno = $persistencia->buscaCidadesAutoComplete();
+                
+                        echo $retorno;
+                
+                        break;
+                case 'autocompletebairros':
+                        $model = new MeusEventosModel();
+                        
+                        $model->setTermo($_POST["termo"]);
+                        
+                        $persistencia = new MeusEventosPersistencia();
+                
+                        $persistencia->setModel($model);
+                
+                        $retorno = $persistencia->buscaBairrosAutoComplete();
+                
+                        echo $retorno;
+                
+                        break;
                         
                 
         }

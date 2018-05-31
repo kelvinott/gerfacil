@@ -8,7 +8,8 @@ class AtualizarPerfilModel {
 	private $nascimento;
 	private $estado;
     private $cidade;
-    private $codigo;
+	private $codigo;
+	private $termo;
 
     public function setEmail($email){
 		$this->email = $email;
@@ -64,6 +65,14 @@ class AtualizarPerfilModel {
 
 	public function getCodigo(){
 		return $this->codigo;
+	}
+
+	public function setTermo($termo){
+		$this->termo = $termo;
+	}
+
+	public function getTermo(){
+		return $this->termo;
 	}
 
 }

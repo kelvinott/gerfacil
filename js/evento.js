@@ -1,4 +1,9 @@
-$(document).ready(function() {        
+$(document).ready(function() {      
+    
+    validaInformacoesPerfil();
+    
+    $("#fbComentarios").attr("data-href","https://developers.facebook.com/docs/plugins/cdEvento#" + gup("cdEvento", $(location).attr("href")));
+    
     $("#btnGerfacil").click(function(){
         $(location).attr('href', 'PaginaInicialView.php');         
       });
@@ -30,16 +35,20 @@ $(document).ready(function() {
         });	
       });
       $("#btnCadastroEvento").click(function(){
-        $.ajax({
-          //Tipo de envio POST ou GET
-          type: "POST",
-          dataType: "text",
-          url: "../view/CadastroEventoView.php",
-          //Se der tudo ok no envio...
-          success: function (callback) {
-            $("#divPrincipal").html(callback);
-          }
-        });	
+        if($("#hidflginfo").val() != ""){
+            jbkrAlert.alerta('Alerta!',"Para utilizar essa funcionalidade é necessário atualizar seu perfil.");
+        } else {
+            $.ajax({
+                //Tipo de envio POST ou GET
+                type: "POST",
+                dataType: "text",
+                url: "../view/CadastroEventoView.php",
+                //Se der tudo ok no envio...
+                success: function (callback) {
+                    $("#divPrincipal").html(callback);
+                }
+            });    	
+        }	
       });
     
       $("#btnAlterarSenha").click(function(){
@@ -164,7 +173,7 @@ function carregaEvento(){
   
         //Se der tudo ok no envio...
         success: function (dados) {
-
+                
             var json = $.parseJSON(dados);
             var evento = null;
 
@@ -460,4 +469,24 @@ function redirecionarCEP(dados){
     });
     
   }
+}
+
+function validaInformacoesPerfil(){
+    
+    $.ajax({
+        //Tipo de envio POST ou GET
+        type: "POST",
+        dataType: "text",
+        data: {          
+          action: "validainformacoesperfil"
+        },
+  
+        url: "../controller/CadastroEventoController.php",
+  
+        //Se der tudo ok no envio...
+        success: function (dados) {            
+          $("#hidflginfo").val(dados);          
+  
+        }
+      });
 }
