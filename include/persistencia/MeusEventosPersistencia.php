@@ -31,8 +31,8 @@ class MeusEventosPersistencia   {
             $sSql = "SELECT eve.cdEvento cdEvento
                            ,eve.nmEvento nmEvento
                            ,SUBSTRING(eve.dsEvento,1,50) dsEvento
-                           ,eve.dtInicio dtInicio
-                           ,eve.dtTermino dtTermino
+                           ,eve.dtInicio dtInicio 
+                           ,eve.dtTermino dtTermino  
                            ,eve.hrInicio hrInicio
                            ,eve.hrTermino hrTermino
                            ,cat.dsCategoria dsCategoria
@@ -48,6 +48,7 @@ class MeusEventosPersistencia   {
                            ,eve.dsComplemento dsComplemento
                            ,uev.tbPerfis_cdPerfil cdPerfil
                            ,bai.nmBairro nmBairro
+                           ,eve.idNotificacao
                        FROM tbusuarios_tbeventos uev
                        JOIN tbeventos eve
                          ON eve.cdEvento = uev.cdEvento
@@ -65,8 +66,8 @@ class MeusEventosPersistencia   {
             $sSql = "SELECT eve.cdEvento cdEvento
                            ,eve.nmEvento nmEvento
                            ,eve.dsEvento dsEvento
-                           ,eve.dtInicio dtInicio
-                           ,eve.dtTermino dtTermino
+                           ,eve.dtInicio dtInicio 
+                           ,eve.dtTermino dtTermino  
                            ,eve.hrInicio hrInicio
                            ,eve.hrTermino hrTermino
                            ,cat.dsCategoria dsCategoria
@@ -82,6 +83,7 @@ class MeusEventosPersistencia   {
                            ,eve.dsComplemento dsComplemento
                            ,3 cdPerfil
                            ,bai.nmBairro nmBairro
+                           ,eve.idNotificacao
                        FROM tbeventos eve                      
                        JOIN tbcategorias cat
                          ON cat.cdCategoria = eve.cdCategoria
@@ -130,6 +132,7 @@ class MeusEventosPersistencia   {
                                       , "cdCategoria" : "'.$linha["cdCategoria"].'"
                                       , "cdPerfil" : "'.$linha["cdPerfil"].'"
                                       , "cdBairro" : "'.$linha["cdBairro"].'"
+                                      , "idNotificacao" : "'.$linha["idNotificacao"].'"
                                       , "dsCategoria" : "'.$linha["dsCategoria"].'"}';
 
                 //Para não concatenar a virgula no final do json
@@ -265,8 +268,8 @@ class MeusEventosPersistencia   {
         
         $sSql = "SELECT ati.nmAtividade
                        ,ati.dsAtividade
-                       ,ati.dtAtividadeInicio
-                       ,ati.dtAtividadeTermino
+                       ,ati.dtAtividadeInicio 
+                       ,ati.dtAtividadeTermino                         
                        ,ati.hrInicioAtividade
                        ,ati.hrTerminoAtividade
                        ,ati.cdAtividade

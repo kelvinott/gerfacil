@@ -26,7 +26,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="txbSenhaAntiga">Senha Antiga</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="password" name="txbSenhaAntiga" class="form-control" id="txbSenhaAntiga" placeholder="Senha Antiga" required>
+                            <input type="password" name="txbSenhaAntiga" class="form-control" id="txbSenhaAntiga" placeholder="Senha Antiga *" required>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="txbSenha">Nova Senha</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="password" name="txbSenhaNova" class="form-control" id="txbSenhaNova" placeholder="Nova Senha" required>
+                            <input type="password" name="txbSenhaNova" class="form-control" id="txbSenhaNova" placeholder="Nova Senha *" required>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="txbSenhaRepetir">Repetir Nova Senha</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="password" name="txbSenhaNovaRepetir" class="form-control" id="txbSenhaNovaRepetir" placeholder="Repetir Nova Senha" required>
+                            <input type="password" name="txbSenhaNovaRepetir" class="form-control" id="txbSenhaNovaRepetir" placeholder="Repetir Nova Senha *" required>
                         </div>
                     </div>
                 </div>

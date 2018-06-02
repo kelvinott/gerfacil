@@ -1,4 +1,7 @@
 $(document).ready(function() {    
+
+    buscaCategoria();
+
     $("#btnCadastrar").click(function () {
 
         var txbNomeEvento = $("#txbNomeEvento").val();
@@ -201,6 +204,39 @@ $(document).ready(function() {
     });
 
 });
+
+function buscaCategoria() {
+
+    $.ajax({
+        //Tipo de envio POST ou GET
+        type: "POST",
+        dataType: "text",
+        data: {          
+          action: "buscacategoriadropdown"
+        },
+  
+        url: "../controller/CadastroEventoController.php",
+        success: function (dados) {
+          var json = $.parseJSON(dados);
+  
+          var dropdown;
+          
+          dropdown = dropdown + '<option value="" disabled selected>Categorias</option>';
+          for (var i = 0; i < json.length; i++) {
+  
+            var categoria = json[i];
+  
+            dropdown = dropdown + '<option value="' + categoria.cdCategoria  + '">'+ categoria.dsCategoria +'</option>';
+  
+          }
+          $("#txbCategoria").html(dropdown);
+  
+        }
+  
+      });
+  
+  
+  }
 
     
 function validaCampos(txbNomeEvento, txbDescricao, txbDataInicio, txbDataTermino, txbHoraInicio, txbHoraTermino, txbBairro

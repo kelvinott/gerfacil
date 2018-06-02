@@ -70,7 +70,7 @@ session_start();
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#" id="btnGerfacil" >GerFacil</a>
+      <a class="navbar-brand" href="#" id="btnGerfacil" ><img class="card-img-top" src="../../imagens/logo_gerfacil.png" alt="" style="    width: 188px;height: 92px;position: absolute;top: -21px;"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -149,7 +149,9 @@ session_start();
           <div style="display:inline-block" id="dtEvento" style="color: #50525f;font-family: 'Open Sans', 'Raleway', sans-serif;"> </div>
 
         </div>
+        
         <div id="avaliacao" class="estrelas" style="display: inline-block;">
+          Avalição:
           <input type="radio" id="vazio" name="estrela" value="" checked>
           
           <label for="estrela_um"><i class="fa"></i></label>
@@ -169,7 +171,7 @@ session_start();
           
         </div>
         <div id="divParticipar" style="display:inline-block;" class="float-right" ><button <?php if(!isset($_SESSION["dsNome"])){ echo 'style="display:none;margin:15px;"'; } else {  echo 'style="display:block;margin:15px"'; } ?> type="button" id="btnParticipar" class="btn btn-success"> Participar</button></div>
-        <div id="divDesparticipar" style="display:none;" class="float-right" ><button <?php if(!isset($_SESSION["dsNome"])){ echo 'style="display:none;margin:15px;"'; } else {  echo 'style="display:block;margin:15px"'; } ?> type="button" id="btnDesparticipar" class="btn btn-danger"> Desparticipar</button></div>
+        <div id="divDesparticipar" style="display:none;" class="float-right" ><button <?php if(!isset($_SESSION["dsNome"])){ echo 'style="display:none;margin:15px;"'; } else {  echo 'style="display:block;margin:15px"'; } ?> type="button" id="btnDesparticipar" class="btn btn-danger"> Cancelar Participação</button></div>
         </br>
       </div>
     

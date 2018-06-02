@@ -127,6 +127,18 @@ else {
             echo $retorno;        
     
             break;
+        case 'buscacategoriadropdown':
+            $model = new CadastroEventoModel();
+    
+            $persistencia = new CadastroEventoPersistencia();
+    
+            $persistencia->setModel($model);
+    
+            $retorno = $persistencia->buscaCategoria();
+    
+            echo $retorno;
+    
+            break;
             
     }
 }

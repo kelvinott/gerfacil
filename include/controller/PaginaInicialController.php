@@ -13,6 +13,14 @@ switch($_POST["action"]){
         $model->setInicio($_POST["hidInicio"]);
         $model->setFim($_POST["hidFim"]);
         
+        $ip = "187.55.46.72";//$_SERVER['REMOTE_ADDR'];
+
+        $detalhes = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));    
+        
+        $model->setCidade($detalhes->city);
+        
+        $model->setEstado($detalhes->region);
+        
         if(isset($_SESSION["idFacebook"])) 
             $model->setidFacebook($_SESSION["idFacebook"]);
 
@@ -26,13 +34,7 @@ switch($_POST["action"]){
 
             } else {
                 
-                $ip = "187.55.46.72";//$_SERVER['REMOTE_ADDR'];
-
-                $detalhes = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));    
                 
-                $model->setCidade($detalhes->city);
-                
-                $model->setEstado($detalhes->region);
                 
             }
 
@@ -44,13 +46,7 @@ switch($_POST["action"]){
 
             } else {
                 
-                $ip = "187.55.46.72";//$_SERVER['REMOTE_ADDR'];
-
-                $detalhes = json_decode(file_get_contents("http://ipinfo.io/{$ip}/json"));    
                 
-                $model->setCidade($detalhes->city);
-                
-                $model->setEstado($detalhes->region);
                 
             }
         }
@@ -59,7 +55,15 @@ switch($_POST["action"]){
 
         $persistencia->setModel($model);
 
-        $retorno = $persistencia->carregaEventos();
+        $retorno = $persistencia->carregaEventos("");
+
+        if($retorno == "[]") {
+            $retorno = $persistencia->carregaEventos("1"); 
+
+            if($retorno == "[]") {
+                $retorno = $persistencia->carregaEventos("2"); 
+            }
+        }
 
         echo $retorno;
 

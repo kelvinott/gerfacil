@@ -200,10 +200,10 @@ function carregaEventos(pesquisar, metodo){
 
           listaEventos = listaEventos + "<div class='col-lg-4 col-sm-6 portfolio-item'>";
           listaEventos = listaEventos + "<div class='card h-100'>";
-          listaEventos = listaEventos + "<a href='../../include/view/EventoView.php?cdEvento="+usuario.cdEvento +"' target='_blank'><img style='max-width: 350px; max-height: 250px;' class='card-img-top' src='../../imagens/" + usuario.nmImagem + "' alt=''></a>";
+          listaEventos = listaEventos + "<a href='../../include/view/EventoView.php?cdEvento="+ usuario.cdEvento +"' target='_blank'><img style='max-width: 350px; max-height: 250px;' class='card-img-top' src='../../imagens/" + usuario.nmImagem + "' alt=''></a>";
           listaEventos = listaEventos + "<div class='card-body'>";
           listaEventos = listaEventos + "<h4 class='card-title'>";
-          listaEventos = listaEventos + "<a href='#'>" + usuario.nmEvento + "</a>";
+          listaEventos = listaEventos + "<a href='../../include/view/EventoView.php?cdEvento="+ usuario.cdEvento +"' target='_blank'>" + usuario.nmEvento + "</a>";
           listaEventos = listaEventos + "</h4>";
           listaEventos = listaEventos + "<p class='card-text'>" + usuario.dsEvento.substring(0, 90); + "</p>";
           listaEventos = listaEventos + "</div>";

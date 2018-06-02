@@ -29,7 +29,7 @@
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                            
                             <input type="text" name="txbEmail" class="form-control" id="txbEmail"
-                                   placeholder="email@exemplo.com" required autofocus>
+                                   placeholder="Email@exemplo.com *" required autofocus maxlength="100">
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                     <div class="form-group has-danger">
                         <label class="sr-only" for="txbNome">Nome</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbNome" class="form-control" id="txbNome" placeholder="Nome" required autofocus>
+                            <input type="text" name="txbNome" class="form-control" id="txbNome" placeholder="Nome *" required autofocus maxlength="100">
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                     <div class="form-group has-danger">
                         <label class="sr-only" for="txbSobrenome">Sobrenome</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbSobrenome" class="form-control" id="txbSobrenome" placeholder="Sobrenome" required autofocus>
+                            <input type="text" name="txbSobrenome" class="form-control" id="txbSobrenome" placeholder="Sobrenome *" required autofocus maxlength="100">
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="txbNascimento">Nascimento</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbNascimento" onfocus="(this.type='date')" class="form-control" id="txbNascimento" placeholder="Nascimento" required>
+                            <input type="text" name="txbNascimento" onfocus="(this.type='date')" class="form-control" id="txbNascimento" placeholder="Nascimento *" required>
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="txbEstado">Estado</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbEstado" class="form-control" id="txbEstado" placeholder="Estado" required autofocus>
+                            <input type="text" name="txbEstado" class="form-control" id="txbEstado" placeholder="Estado *" required autofocus>
                         </div>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="txbCidade">Cidade</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbCidade" class="form-control" id="txbCidade" placeholder="Cidade" required autofocus>
+                            <input type="text" name="txbCidade" class="form-control" id="txbCidade" placeholder="Cidade *" required autofocus>
                         </div>
                     </div>
                 </div>

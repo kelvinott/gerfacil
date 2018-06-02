@@ -20,7 +20,7 @@ if(isset($_SESSION["cdUsuario"]))
     <script type="text/javascript" src="../../lib/jquery/jquery-ui.min.js"></script>    
     <link rel="stylesheet" href="../../lib/jquery/jquery-ui.min.css">    
     <script type="text/javascript" src="../../lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="http://malsup.github.com/jquery.form.js"></script>    
+    <script type="text/javascript" src="../../lib/jquery/jquery-form.js"></script>    
     <link rel="stylesheet" href="../../css/alerta.css">    
     <script type="text/javascript" src="../../js/paginainicial.js"></script>                    
     <script type="text/javascript" src="../../js/alerta.js"></script>
@@ -104,7 +104,7 @@ if(isset($_SESSION["cdUsuario"]))
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#" id="btnGerfacil" >GerFacil</a>
+        <a class="navbar-brand" href="#" id="btnGerfacil" ><img class="card-img-top" src="../../imagens/logo_gerfacil.png" alt="" style="    width: 188px;height: 92px;position: absolute;top: -21px;"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -191,7 +191,7 @@ if(isset($_SESSION["cdUsuario"]))
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2018</p>
+        <p class="m-0 text-center text-white">Copyright &copy; Gerfacil 2018</p>
       </div>
       <!-- /.container -->
     </footer>

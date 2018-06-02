@@ -29,7 +29,7 @@
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                            
                             <input type="text" name="txbNomeEvento" class="form-control" id="txbNomeEvento"
-                                   placeholder="Nome" required autofocus>
+                                   placeholder="Nome *" required autofocus maxlength="100" >
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                     <div class="form-group has-danger">
                         <label class="sr-only" for="txbDescricao">Descrição</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbDescricao" class="form-control" id="txbDescricao" placeholder="Descrição" required autofocus>
+                            <input type="text" name="txbDescricao" class="form-control" id="txbDescricao" placeholder="Descrição *" required autofocus maxlength="2000">
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="txbDataInicio">Data de Inicio</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbDataInicio" onfocus="(this.type='date')" class="form-control" id="txbDataInicio" placeholder="Data de Inicio" required>
+                            <input type="text" name="txbDataInicio" onfocus="(this.type='date')" class="form-control" id="txbDataInicio" placeholder="Data de Inicio *" required>
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="txbDataTermino">Data de Término</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbDataTermino" onfocus="(this.type='date')" class="form-control" id="txbDataTermino" placeholder="Data de Término" required>
+                            <input type="text" name="txbDataTermino" onfocus="(this.type='date')" class="form-control" id="txbDataTermino" placeholder="Data de Término *" required>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="txbHoraInicio">Hora de Inicio</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbHoraInicio" onfocus="(this.type='time')" class="form-control" id="txbHoraInicio" placeholder="Hora de Inicio" required>
+                            <input type="text" name="txbHoraInicio" onfocus="(this.type='time')" class="form-control" id="txbHoraInicio" placeholder="Hora de Inicio *" required>
                         </div>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="txbHoraTermino">c</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbHoraTermino" onfocus="(this.type='time')" class="form-control" id="txbHoraTermino" placeholder="Hora de Término" required>
+                            <input type="text" name="txbHoraTermino" onfocus="(this.type='time')" class="form-control" id="txbHoraTermino" placeholder="Hora de Término *" required>
                         </div>
                     </div>
                 </div>
@@ -90,9 +90,7 @@
                     <div class="form-group" class="form-control">
                         <label class="sr-only" for="txbCategoria">Categoria</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <select id="txbCategoria" name="txbCategoria" class="form-control" required>
-                            <option value="" disabled selected>Categoria</option>
-                            <option value="1">Festa</option>
+                        <select id="txbCategoria" name="txbCategoria" class="form-control" required>                            
                         </select>
                         </div>
                     </div>
@@ -101,7 +99,7 @@
                     <div class="form-group has-danger">
                         <label class="sr-only" for="txbCep">CEP</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbCep" class="form-control" id="txbCep" placeholder="CEP" maxlength="9" required autofocus>
+                            <input type="text" name="txbCep" class="form-control" id="txbCep" placeholder="CEP *" maxlength="9" required autofocus>
                         </div>
                     </div>
                 </div>
@@ -112,7 +110,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="txbEstado">Estado</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbEstado" class="form-control" id="txbEstado" placeholder="Estado" required autofocus>
+                            <input type="text" name="txbEstado" class="form-control" id="txbEstado" placeholder="Estado *" required autofocus>
                         </div>
                     </div>
                 </div>                            
@@ -120,7 +118,7 @@
                     <div class="form-group">
                         <label class="sr-only" for="txbCidade">Cidade</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbCidade" class="form-control" id="txbCidade" placeholder="Cidade" required autofocus>
+                            <input type="text" name="txbCidade" class="form-control" id="txbCidade" placeholder="Cidade *" required autofocus>
                         </div>
                     </div>
                 </div>
@@ -131,7 +129,7 @@
                     <div class="form-group has-danger">
                         <label class="sr-only" for="txbBairro">Bairro</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbBairro" class="form-control" id="txbBairro" placeholder="Bairro" required autofocus>
+                            <input type="text" name="txbBairro" class="form-control" id="txbBairro" placeholder="Bairro *" required autofocus>
                         </div>
                     </div>
                 </div>
@@ -139,7 +137,7 @@
                     <div class="form-group has-danger">
                         <label class="sr-only" for="txbRua">Rua</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbRua" class="form-control" id="txbRua" placeholder="Rua" required autofocus>
+                            <input type="text" name="txbRua" class="form-control" id="txbRua" placeholder="Rua *" required autofocus maxlength="100">
                         </div>
                     </div>
                 </div>
@@ -150,7 +148,7 @@
                     <div class="form-group has-danger">
                         <label class="sr-only" for="txbNumeroCasa">Número</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="number" name="txbNumeroCasa" class="form-control" id="txbNumeroCasa" placeholder="Número" required autofocus>
+                            <input type="number" name="txbNumeroCasa" class="form-control" id="txbNumeroCasa" placeholder="Número *" maxlength="9" required autofocus>
                         </div>
                     </div>
                 </div>
@@ -158,7 +156,7 @@
                     <div class="form-group has-danger">
                         <label class="sr-only" for="txbComplemento">Complemento</label>
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                            <input type="text" name="txbComplemento" class="form-control" id="txbComplemento" placeholder="Complemento" required autofocus>
+                            <input type="text" name="txbComplemento" class="form-control" id="txbComplemento" placeholder="Complemento" required autofocus maxlength="100">
                         </div>
                     </div>
                 </div>

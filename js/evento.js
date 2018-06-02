@@ -128,7 +128,7 @@ $(document).ready(function() {
                 $("#divParticipar").css("display","inline-block");
                 $("#divDesparticipar").css("display","none");
                 $("#avaliacao").css("display","none");
-                jbkrAlert.sucesso('Evento', 'Desparticipação concluída com sucesso.');
+                jbkrAlert.sucesso('Evento', 'Participação cancelada com sucesso.');
             }
         });
     

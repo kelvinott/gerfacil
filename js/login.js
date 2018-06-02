@@ -1,6 +1,12 @@
 $(document).ready(function(){
     $("#txbEmail").focus();
     
+    $("#btnLogin").on('keyup', function(event) {
+        if(event.keyCode == 13){
+            $("#btnLogin").click();
+        }
+    });
+
     $("#btnEsqueceuSenha").click(function(){
         $.ajax({
             //Tipo de envio POST ou GET
@@ -12,8 +18,6 @@ $(document).ready(function(){
                 $("#divPrincipal").html(callback);
             }
         });	
-
-
     });
     
     $("#txbSenha").on('keyup', function(event) {

@@ -174,6 +174,7 @@ function buscarUsuario(){
           for (var i = 0; i < json.length; i++) {
               usuario = json[i];
 
+              $("#txbNascimento").attr("type","date");
               $("#txbEmail").val(usuario.dsEmail);
               $("#txbNome").val(usuario.dsNome);
               $("#txbSobrenome").val(usuario.dsSobrenome);

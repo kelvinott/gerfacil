@@ -50,7 +50,7 @@ class CadastroEventoPersistencia{
                     ,dtTermino
                     ,hrInicio
                     ,hrTermino
-                    ,nmBairro
+                    ,cdbairro
                     ,nmRua
                     ,nrLocal
                     ,dsComplemento
@@ -148,10 +148,10 @@ class CadastroEventoPersistencia{
 
 		while ($linha = mysqli_fetch_assoc($resultado)) {
 			
-			$mensagem = $linha["dsNome"] . " o evento " . $nomeEvento . " foi adicionado a sua cidade </br> <a href='../../include/view/EventoView.php?cdEvento=" . $cdEvento ."' target='_blank'>Clique Aqui</a> para conhecer.";
+			$mensagem = $linha["dsNome"] . ", o evento " . $nomeEvento . " foi adicionado a sua cidade </br> <a href='https://gerfacil.herokuapp.com/include/view/EventoView.php?cdEvento=" . $cdEvento ."' target='_blank'>Clique Aqui</a> para conhecer.";
             
-            echo $mensagem;
-            /*$objemail->enviaEmail($linha["dsEmail"],$mensagem,$assunto,$emailUsuario,null);*/
+            $objemail = new Email();
+            $objemail->enviaEmail($linha["dsEmail"],$mensagem,$assunto,$emailUsuario,null);
 			
 		}
         
@@ -287,6 +287,39 @@ class CadastroEventoPersistencia{
 
 		
     }    
+
+    public function buscaCategoria(){
+		$this->conexao->conectaBanco();
+
+        $sSql = "SELECT cdCategoria
+                       ,dsCategoria
+                   FROM tbCategorias";
+
+		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
+
+		$qtdLinhas = mysqli_num_rows($resultado);
+
+		$contador = 0;
+
+		$retorno = '[';
+		while ($linha = mysqli_fetch_assoc($resultado)) {
+
+			$contador = $contador + 1;
+
+			$retorno = $retorno . '{"cdCategoria": "'.$linha["cdCategoria"].'"
+			                        , "dsCategoria" : "'.$linha["dsCategoria"].'"}';
+        //Para não concatenar a virgula no final do json
+			if($qtdLinhas != $contador)
+				$retorno = $retorno . ',';
+
+		}
+		$retorno = $retorno . "]";
+
+		$this->conexao->fechaConexao();
+
+		return $retorno;
+
+	}
 
 }
 

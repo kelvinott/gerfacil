@@ -175,12 +175,14 @@ class EventoPersistencia   {
         $nmEvento = $this->buscaNmEvento($cdEvento);
         $nmUsuario = $this->buscaNmUsuario($cdUsuario);
         $dsEmail = $this->emailOrganizadorEvento($cdEvento);
-
+        
         $assunto = "Novo participante do evento - " . $nmEvento;
 
         $mensagem = "O usuario " . $nmUsuario . " está participando do seu evento " . $nmEvento;            
-            
-        /*$objemail->enviaEmail($dsEmail,$mensagem,$assunto,$emailUsuario,null);*/
+        
+        $objemail = new Email();
+        
+        $objemail->enviaEmail($dsEmail,$mensagem,$assunto,$emailUsuario,null);
 
         $this->conexao->query($sSql);
 

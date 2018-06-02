@@ -1,5 +1,6 @@
 $(document).ready(function(){
     carregaEventos();
+    buscaCategoria();
     
     $("#btnAtualizarAtividade").click(function () {
         hidCdAtividade = $("#hidCdAtividade").val();  
@@ -327,12 +328,12 @@ function carregaEventos(cdEvento){
                 for (var i = 0; i < json.length; i++) {
                     eventos = json[i];
         
-                    
+                    moment.locale('pt');
                     grid = grid + "<tr>";
                     grid = grid + "<td>" + eventos.nmEvento + "</td>";
                     grid = grid + "<td>" + eventos.dsEvento + "</td>";
-                    grid = grid + "<td>" + eventos.dtInicio + "</td>";
-                    grid = grid + "<td>" + eventos.dtTermino + "</td>";
+                    grid = grid + "<td>" + moment(eventos.dtInicio).format("DD/MM/YYYY") + "</td>";
+                    grid = grid + "<td>" + moment(eventos.dtTermino).format("DD/MM/YYYY") + "</td>";
                     grid = grid + "<td>" + eventos.dsCategoria + "</td>";
                    
                     if(eventos.cdPerfil != 1) {
@@ -360,6 +361,8 @@ function carregaEventos(cdEvento){
                 for (var i = 0; i < json.length; i++) {                    
                     eventos = json[i];
 
+                    $("#txbDataInicio").attr("type","date");
+                    $("#txbDataTermino").attr("type","date");
                     $("#hidCdEvento").val(eventos.cdEvento);
                     $("#txbNomeEvento").val(eventos.nmEvento);
                     $("#txbDescricao").val(eventos.dsEvento);
@@ -373,6 +376,11 @@ function carregaEventos(cdEvento){
                     $("#txbCep").val(eventos.nrCep);                    
                     $("#txbCategoria").val(eventos.cdCategoria);
                     
+                    if(eventos.idNotificacao == 1)
+                        $('#ckbNotificacao').prop('checked', true);
+                    else
+                        $('#ckbNotificacao').prop('checked', false);
+
                     $("#txbEstado").val(eventos.cdEstado + " - " + eventos.nmEstado);
                     $("#txbCidade").val(eventos.cdCidade + " - " + eventos.nmCidade); 
                     $("#txbBairro").val(eventos.cdBairro + " - " + eventos.nmBairro);
@@ -417,12 +425,13 @@ function carregarAtividades(cdEvento) {
             
             for (var i = 0; i < json.length; i++) {
                 atividades = json[i];
-                
+                moment.locale('pt');
+
                 grid = grid + "<tr>";
                 grid = grid + "<td>" + atividades.nmAtividade + "</td>";
                 grid = grid + "<td>" + atividades.dsAtividade + "</td>";
-                grid = grid + "<td>" + atividades.dtAtividadeInicio + "</td>";
-                grid = grid + "<td>" + atividades.dtAtividadeTermino + "</td>";
+                grid = grid + "<td>" + moment(atividades.dtAtividadeInicio).format("DD/MM/YYYY") + "</td>";
+                grid = grid + "<td>" + moment(atividades.dtAtividadeTermino).format("DD/MM/YYYY") + "</td>";
                 grid = grid + "<td>" + atividades.hrInicioAtividade + "</td>";
                 grid = grid + "<td>" + atividades.hrTerminoAtividade + "</td>";                
                 grid = grid + '<td onClick="editarAtividade(' + atividades.cdEvento + ',' + atividades.cdAtividade + ',\'' + atividades.nmAtividade + '\',\'' + atividades.dsAtividade + '\',\'' + atividades.dtAtividadeInicio + '\',\''  + atividades.dtAtividadeTermino + '\',\'' + atividades.hrInicioAtividade + '\',\''  + atividades.hrTerminoAtividade  +'\')"><a  href="javascript:void(0);"> <img title="Editar atividade" style="width:25px; margin-right: -12px;" class="card-img-top" src="../../imagens/edit_icon.png" alt=""> <span class="glyphicon glyphicon-pencil"></span></a></td>';                                                    
@@ -446,7 +455,8 @@ function editarAtividade(cdEvento, cdAtividade, nmAtividade, dsAtividade, dtAtiv
     $("#hidCdAtividade").val(cdAtividade);  
     $("#hidCdEventoAtividade").val(cdEvento);  
     
-    
+    $("#txbDataInicioAtividade").attr("type","date");
+    $("#txbDataTerminoAtividade").attr("type","date");
     $("#txbNomeAtividade").val(nmAtividade);
     $("#txbDescricaoAtividade").val(dsAtividade);
     $("#txbDataInicioAtividade").val(dtAtividadeInicio);
@@ -458,6 +468,39 @@ function editarAtividade(cdEvento, cdAtividade, nmAtividade, dsAtividade, dtAtiv
     $("#btnAtualizarAtividade").css("display","block");
 
 }
+
+function buscaCategoria() {
+
+    $.ajax({
+        //Tipo de envio POST ou GET
+        type: "POST",
+        dataType: "text",
+        data: {          
+          action: "buscacategoriadropdown"
+        },
+  
+        url: "../controller/CadastroEventoController.php",
+        success: function (dados) {
+          var json = $.parseJSON(dados);
+  
+          var dropdown;
+          
+          dropdown = dropdown + '<option value="" disabled selected>Categorias</option>';
+          for (var i = 0; i < json.length; i++) {
+  
+            var categoria = json[i];
+  
+            dropdown = dropdown + '<option value="' + categoria.cdCategoria  + '">'+ categoria.dsCategoria +'</option>';
+  
+          }
+          $("#txbCategoria").html(dropdown);
+  
+        }
+  
+      });
+  
+  
+  }
 
 function validaCampos(txbNomeEvento, txbDescricao, txbDataInicio, txbDataTermino, txbHoraInicio, txbHoraTermino, txbBairro
                     , txbRua, txbNumero, txbCep, txbEstado, txbCidade, txbCategoria, txbImagem) {

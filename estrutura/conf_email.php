@@ -33,6 +33,7 @@ class Email{
     $mail->Password = GPWD;
     $mail->SetFrom($this->remetente);
     $mail->Subject = utf8_decode($assunto);
+    $mail->IsHTML(true);  
     $mail->Body = $mensagem;
     $mail->AddAddress($email);
     $mail->AddCC($cc);
