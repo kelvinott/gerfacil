@@ -13,13 +13,13 @@ if(!isset($_POST["action"])) {
 
     $ext = strtolower(strrchr($nome_imagem,"."));
     
-    /*$im = imagecreatefromjpeg($_FILES['imagem']['tmp_name']);
+    $im = imagecreatefromjpeg($_FILES['imagem']['tmp_name']);
     
     
     if(imagesx($im) < 1200 || imagesx($im) < 250)        
         echo "Resolução mínima 1200x250";   
 
-    else {*/
+    else {
 
         if(in_array($ext,$permitidos)){
             $tamanho = round($tamanho_imagem / 1024);   
@@ -27,7 +27,7 @@ if(!isset($_POST["action"])) {
             if($tamanho < 1024){ //se imagem for até 1MB envia
                 $nome_atual = md5(uniqid(time())).$ext; //nome que dará a imagem
                 $tmp = $_FILES['imagem']['tmp_name']; //caminho temporário da imagem        
-                move_uploaded_file($tmp,$pasta.$nome_atual);
+                echo move_uploaded_file($tmp,$pasta.$nome_atual);
                 $_SESSION["nmImagem"] = $nome_atual;
             }
             else {
@@ -38,7 +38,7 @@ if(!isset($_POST["action"])) {
             echo "Somente são aceitos arquivos do tipo Imagem";
         }
         
-/*}*/
+    }
 
     imagedestroy($im);
 }
