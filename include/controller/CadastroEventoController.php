@@ -27,7 +27,9 @@ if(!isset($_POST["action"])) {
             if($tamanho < 1024){ //se imagem for até 1MB envia
                 $nome_atual = md5(uniqid(time())).$ext; //nome que dará a imagem
                 $tmp = $_FILES['imagem']['tmp_name']; //caminho temporário da imagem        
-                echo move_uploaded_file($tmp,$pasta.$nome_atual);
+                if(move_uploaded_file($tmp,$pasta.$nome_atual))
+                    echo "ae";
+                else echo "ae2";
                 $_SESSION["nmImagem"] = $nome_atual;
             }
             else {
