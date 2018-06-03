@@ -13,13 +13,13 @@ if(!isset($_POST["action"])) {
 
     $ext = strtolower(strrchr($nome_imagem,"."));
     
-    $im = imagecreatefromjpeg($_FILES['imagem']['tmp_name']);
+    /*$im = imagecreatefromjpeg($_FILES['imagem']['tmp_name']);
     
     
     if(imagesx($im) < 1200 || imagesx($im) < 250)        
         echo "Resolução mínima 1200x250";   
 
-    else {
+    else {*/
 
         if(in_array($ext,$permitidos)){
             $tamanho = round($tamanho_imagem / 1024);   
@@ -38,7 +38,7 @@ if(!isset($_POST["action"])) {
             echo "Somente são aceitos arquivos do tipo Imagem";
         }
         
-    }
+/*}*/
 
     imagedestroy($im);
 }
