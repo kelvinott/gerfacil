@@ -297,12 +297,12 @@ class CadastroEventoPersistencia{
 
 		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
 
-		$qtdLinhas = mysqli_num_rows($resultado);
+		$qtdLinhas = mysqli_num_rows($this->conexao->getConexao(),$resultado);
 
 		$contador = 0;
 
 		$retorno = '[';
-		while ($linha = mysqli_fetch_assoc($resultado)) {
+		while ($linha = mysqli_fetch_assoc($this->conexao->getConexao(),$resultado)) {
 
 			$contador = $contador + 1;
 
