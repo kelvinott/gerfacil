@@ -54,7 +54,7 @@ class MeusEventosPersistencia   {
                          ON eve.cdEvento = uev.cdEvento
                        JOIN tbcategorias cat
                          ON cat.cdCategoria = eve.cdCategoria
-                       JOIN tbEstado est
+                       JOIN tbestado est
                          ON est.cdEstado = eve.cdEstado
                        JOIN tbCidades cid
                          ON cid.cdCidade = eve.cdCidade 
@@ -87,7 +87,7 @@ class MeusEventosPersistencia   {
                        FROM tbeventos eve                      
                        JOIN tbcategorias cat
                          ON cat.cdCategoria = eve.cdCategoria
-                       JOIN tbEstado est
+                       JOIN tbestado est
                          ON est.cdEstado = eve.cdEstado
                        JOIN tbCidades cid
                          ON cid.cdCidade = eve.cdCidade 
