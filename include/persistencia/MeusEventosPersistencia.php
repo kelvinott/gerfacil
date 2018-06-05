@@ -179,7 +179,7 @@ class MeusEventosPersistencia   {
                        ,eve.dtTermino = STR_TO_DATE('" . $dataTermino . "','%d/%m/%Y')
                        ,eve.hrInicio = '" . $horaInicio . "'
                        ,eve.hrTermino = '" . $horaTermino . "'
-                       ,eve.nmBairro = '" . $bairro . "'
+                       ,eve.cdBairro = '" . $bairro . "'
                        ,eve.nmRua = '" . $rua . "'
                        ,eve.nrLocal = '" . $numero . "'
                        ,eve.dsComplemento = '" . $complemento . "'
