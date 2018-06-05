@@ -293,8 +293,7 @@ class CadastroEventoPersistencia{
 
         $sSql = "SELECT cdCategoria
                        ,dsCategoria
-                   FROM tbCategorias
-                WHERE 1 = 1";
+                   FROM tbcategorias";
 
 		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
 
