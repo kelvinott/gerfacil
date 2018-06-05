@@ -236,7 +236,7 @@ class CadastroEventoPersistencia{
 		$termo = $this->getModel()->getTermo();
 
 		$sSql = "SELECT CONCAT(bai.cdBairro,' - ',bai.nmBairro) nmBairro
-					FROM tbBairros bai
+					FROM tbbairros bai
 					WHERE nmBairro LIKE '%". $termo ."%'";
 
 		$resultado = mysqli_query($this->conexao->getConexao(), $sSql);
