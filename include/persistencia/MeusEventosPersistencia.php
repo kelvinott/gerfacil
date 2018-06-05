@@ -56,7 +56,7 @@ class MeusEventosPersistencia   {
                          ON cat.cdCategoria = eve.cdCategoria
                        JOIN tbestado est
                          ON est.cdEstado = eve.cdEstado
-                       JOIN tbCidades cid
+                       JOIN tbcidades cid
                          ON cid.cdCidade = eve.cdCidade 
                        JOIN tbbairros bai
                          ON bai.cdBairro = eve.cdBairro
@@ -89,7 +89,7 @@ class MeusEventosPersistencia   {
                          ON cat.cdCategoria = eve.cdCategoria
                        JOIN tbestado est
                          ON est.cdEstado = eve.cdEstado
-                       JOIN tbCidades cid
+                       JOIN tbcidades cid
                          ON cid.cdCidade = eve.cdCidade 
                        JOIN tbbairros bai
                          ON bai.cdBairro = eve.cdBairro 
