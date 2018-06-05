@@ -96,7 +96,7 @@ session_start();
                     <a class="dropdown-item" id="btnMeusEventos" id="perfil" href="#"> Meus Eventos</a>
                   </li >
                   <li>
-                    <a class="dropdown-item" id="btnEditarPerfil" id="perfil" href="#"> Editar Perfil</a>
+                    <a class="dropdown-item" id="btnEditarPerfil" id="perfil" href="#"> Atualizar Perfil</a>
                   </li >
                   <li >
                     <a class="dropdown-item" id="btnAlterarSenha" id="perfil" href="#"> Alterar Senha</a>
