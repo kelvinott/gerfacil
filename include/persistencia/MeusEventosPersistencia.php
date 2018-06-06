@@ -61,6 +61,7 @@ class MeusEventosPersistencia   {
                        JOIN tbbairros bai
                          ON bai.cdBairro = eve.cdBairro
                       WHERE uev.cdUsuario = " . $cdUsuario . "
+                        AND eve.idAtivo = 1
                       ORDER BY dtInicio, hrInicio";
         } else {
             $sSql = "SELECT eve.cdEvento cdEvento
@@ -216,6 +217,7 @@ class MeusEventosPersistencia   {
                                         ,dtAtividadeInicio
                                         ,dtAtividadeTermino
                                         ,hrInicioAtividade
+                                        ,idAtivo
                                         ,hrTerminoAtividade)
                                         VALUES ('". $nomeAtividade ."'
                                         ,'". $descricaoAtividade ."'
@@ -224,6 +226,7 @@ class MeusEventosPersistencia   {
                                         ,STR_TO_DATE('". $dataInicioAtividade ."','%d/%m/%Y')
                                         ,STR_TO_DATE('". $dataTerminoAtividade ."','%d/%m/%Y')
                                         ,'". $horaInicioAtividade ."'                    
+                                        ,'". 1 ."'                    
                                         ,'". $horaTerminoAtividade ."')";
 
         $this->conexao->query($sSql);
@@ -259,6 +262,38 @@ class MeusEventosPersistencia   {
 
     }
 
+    public function inativaEvento(){
+
+        $this->conexao->conectaBanco();
+        
+        $cdEvento = $this->getModel()->getEvento();
+        
+        $sSql = "UPDATE tbeventos eve
+                    SET eve.idAtivo = 0                       
+                  WHERE eve.cdEvento = " . $cdEvento;               
+
+        $this->conexao->query($sSql);
+        $this->conexao->fechaConexao();
+
+    }
+
+    public function inativaAtividade(){
+
+        $this->conexao->conectaBanco();
+        
+        $cdEvento = $this->getModel()->getEvento();
+        $cdAtividade = $this->getModel()->getAtividade();
+        
+        $sSql = "UPDATE tbAtividades ati
+                    SET ati.idAtivo = 0                       
+                  WHERE ati.cdEvento = " . $cdEvento . "
+                    AND ati.cdAtividade = " . $cdAtividade;               
+
+        $this->conexao->query($sSql);
+        $this->conexao->fechaConexao();
+
+    }
+    
     public function carregarAtividades(){
         $this->conexao->conectaBanco();
 
@@ -275,9 +310,14 @@ class MeusEventosPersistencia   {
                        ,ati.cdAtividade
                        ,ati.cdUsuario
                        ,ati.cdEvento
+                       ,uve.tbPerfis_cdPerfil cdPerfil
                    FROM tbatividades ati
+                   JOIN tbusuarios_tbeventos uve
+                     ON uve.cdEvento = ati.cdEvento
+                    AND uve.cdUsuario = ati.cdUsuario
                   WHERE ati.cdEvento = " . $cdEvento . "
-                    AND ati.cdUsuario = " . $cdUsuario;
+                    AND ati.cdUsuario = " . $cdUsuario . "
+                    AND ati.idAtivo = 1";
         
 
         $resultado = mysqli_query($this->conexao->getConexao(), $sSql);
@@ -304,6 +344,7 @@ class MeusEventosPersistencia   {
                                       , "dtAtividadeInicio" : "'.$linha["dtAtividadeInicio"].'"
                                       , "dtAtividadeTermino" : "'.$linha["dtAtividadeTermino"].'"
                                       , "hrInicioAtividade" : "'.$linha["hrInicioAtividade"].'"                                                                           
+                                      , "cdPerfil" : "'.$linha["cdPerfil"].'"                                                                           
                                       , "hrTerminoAtividade" : "'.$linha["hrTerminoAtividade"].'"}';
 
                 //Para não concatenar a virgula no final do json
