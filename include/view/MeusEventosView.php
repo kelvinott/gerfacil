@@ -308,6 +308,9 @@ session_start();
                         <th>
                             
                         </th>
+                        <th>
+                            
+                        </th>
                     </tr>
                 </thead>
                 <tbody id="grdMeusEventos"></tbody>
@@ -338,7 +341,10 @@ session_start();
                         </th>
                         <th>
                             
-                        </th>                        
+                        </th>    
+                        <th>
+                            
+                        </th>                    
                     </tr>
                 </thead>
                 <tbody id="grdAtividades"></tbody>

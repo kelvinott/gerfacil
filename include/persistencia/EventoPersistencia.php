@@ -181,7 +181,7 @@ class EventoPersistencia   {
         $mensagem = "O usuario " . $nmUsuario . " está participando do seu evento " . $nmEvento;            
         
         $objemail = new Email();
-        
+
         $objemail->enviaEmail($dsEmail,$mensagem,$assunto,$emailUsuario,null);
 
         $this->conexao->query($sSql);
@@ -357,7 +357,8 @@ class EventoPersistencia   {
                        ,ati.cdUsuario
                        ,ati.cdEvento
                    FROM tbatividades ati
-                  WHERE ati.cdEvento = " . $cdEvento;        
+                  WHERE ati.cdEvento = " . $cdEvento . "
+                    AND ati.idAtivo = 1";        
 
         $resultado = mysqli_query($this->conexao->getConexao(), $sSql);
 

@@ -133,8 +133,28 @@ if(!isset($_POST["action"])) {
                        
                         $persistencia->setModel($model);
                         $persistencia->atualizarAtividade();
+                case 'inativaevento':
+                        $model = new MeusEventosModel();
+                        $persistencia = new MeusEventosPersistencia();
+                        
+                        $model->setEvento($_POST["cdEvento"]);
+                       
+                        $persistencia->setModel($model);
+                        $persistencia->inativaEvento();
     
                         break;
+                case 'inativaatividade':
+                        $model = new MeusEventosModel();
+                        $persistencia = new MeusEventosPersistencia();
+                        
+                        $model->setEvento($_POST["cdEvento"]);
+                        $model->setAtividade($_POST["cdAtividade"]);
+                       
+                        $persistencia->setModel($model);
+                        $persistencia->inativaAtividade();
+    
+                        break;
+                        
                 case 'autocompleteestados':
                         $model = new MeusEventosModel();
                         

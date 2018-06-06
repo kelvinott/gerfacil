@@ -336,15 +336,26 @@ function carregaEventos(cdEvento){
                     grid = grid + "<td>" + moment(eventos.dtTermino).format("DD/MM/YYYY") + "</td>";
                     grid = grid + "<td>" + eventos.dsCategoria + "</td>";
                    
-                    if(eventos.cdPerfil != 1) {
+                    if(eventos.cdPerfil == 3) {
                         grid = grid + "<td onClick='carregaEventos(" + eventos.cdEvento + ")'><a  href='javascript:void(0);'> <img title='Editar evento' style='width:25px; margin-right: -12px;' class='card-img-top' src='../../imagens/edit_icon.png' alt=''> <span class='glyphicon glyphicon-pencil'></span></a></td>";                
-                        grid = grid + "<td onClick='carregarAtividades(" + eventos.cdEvento + ")'><a  href='javascript:void(0);'> <img title='Editar atividade' style='width:25px; margin-right: -12px;' class='card-img-top' src='../../imagens/open_activity_icon.png' alt=''> <span class='glyphicon glyphicon-pencil'></span></a></td>";                                    
+                        grid = grid + "<td onClick='carregarAtividades(" + eventos.cdEvento + ")'><a  href='javascript:void(0);'> <img title='Editar atividade' style='width:25px; margin-right: -12px;' class='card-img-top' src='../../imagens/open_activity_icon.png' alt=''> <span class='glyphicon glyphicon-pencil'></span></a></td>";                                                            
+                        grid = grid + "<td ><a href='../../include/view/EventoView.php?cdEvento="+eventos.cdEvento +"' target='_blank'><img title='Abrir evento' style='width:30px; margin-right: -12px;' class='card-img-top' src='../../imagens/link_icon.png' alt=''> <span class='glyphicon glyphicon-pencil'></span></a></td>";                
+                        grid = grid + "<td onClick='inativaEvento(" + eventos.cdEvento + ")'><a  href='javascript:void(0);'> <img title='Editar atividade' style='width:25px; margin-right: -12px;' class='card-img-top' src='../../imagens/delete_icon.png' alt=''> <span class='glyphicon glyphicon-pencil'></span></a></td>";                                    
                     }
-                    else{
+                    else if(eventos.cdPerfil == 2) {
+                        grid = grid + "<td onClick='carregaEventos(" + eventos.cdEvento + ")'><a  href='javascript:void(0);'> <img title='Editar evento' style='width:25px; margin-right: -12px;' class='card-img-top' src='../../imagens/edit_icon.png' alt=''> <span class='glyphicon glyphicon-pencil'></span></a></td>";                
+                        grid = grid + "<td onClick='carregarAtividades(" + eventos.cdEvento + ")'><a  href='javascript:void(0);'> <img title='Editar atividade' style='width:25px; margin-right: -12px;' class='card-img-top' src='../../imagens/open_activity_icon.png' alt=''> <span class='glyphicon glyphicon-pencil'></span></a></td>";
+                        grid = grid + "<td ><a href='../../include/view/EventoView.php?cdEvento="+eventos.cdEvento +"' target='_blank'><img title='Abrir evento' style='width:30px; margin-right: -12px;' class='card-img-top' src='../../imagens/link_icon.png' alt=''> <span class='glyphicon glyphicon-pencil'></span></a></td>";                
                         grid = grid + "<td></td>";                
-                        grid = grid + "<td></td>";                                    
+                        
                     }                        
-                    grid = grid + "<td ><a href='../../include/view/EventoView.php?cdEvento="+eventos.cdEvento +"' target='_blank'><img title='Abrir evento' style='width:30px; margin-right: -12px;' class='card-img-top' src='../../imagens/link_icon.png' alt=''> <span class='glyphicon glyphicon-pencil'></span></a></td>";                
+                    else if(eventos.cdPerfil == 1) {
+                        grid = grid + "<td></td>";                
+                        grid = grid + "<td></td>"; 
+                        grid = grid + "<td ><a href='../../include/view/EventoView.php?cdEvento="+eventos.cdEvento +"' target='_blank'><img title='Abrir evento' style='width:30px; margin-right: -12px;' class='card-img-top' src='../../imagens/link_icon.png' alt=''> <span class='glyphicon glyphicon-pencil'></span></a></td>";                
+                        grid = grid + "<td></td>";                
+                        
+                    }                    
                     grid = grid + "</tr>";
 
                 }
@@ -434,7 +445,16 @@ function carregarAtividades(cdEvento) {
                 grid = grid + "<td>" + moment(atividades.dtAtividadeTermino).format("DD/MM/YYYY") + "</td>";
                 grid = grid + "<td>" + atividades.hrInicioAtividade + "</td>";
                 grid = grid + "<td>" + atividades.hrTerminoAtividade + "</td>";                
-                grid = grid + '<td onClick="editarAtividade(' + atividades.cdEvento + ',' + atividades.cdAtividade + ',\'' + atividades.nmAtividade + '\',\'' + atividades.dsAtividade + '\',\'' + atividades.dtAtividadeInicio + '\',\''  + atividades.dtAtividadeTermino + '\',\'' + atividades.hrInicioAtividade + '\',\''  + atividades.hrTerminoAtividade  +'\')"><a  href="javascript:void(0);"> <img title="Editar atividade" style="width:25px; margin-right: -12px;" class="card-img-top" src="../../imagens/edit_icon.png" alt=""> <span class="glyphicon glyphicon-pencil"></span></a></td>';                                                    
+                
+                if(atividades.cdPerfil = 3){
+                    grid = grid + '<td onClick="editarAtividade(' + atividades.cdEvento + ',' + atividades.cdAtividade + ',\'' + atividades.nmAtividade + '\',\'' + atividades.dsAtividade + '\',\'' + atividades.dtAtividadeInicio + '\',\''  + atividades.dtAtividadeTermino + '\',\'' + atividades.hrInicioAtividade + '\',\''  + atividades.hrTerminoAtividade  +'\')"><a  href="javascript:void(0);"> <img title="Editar atividade" style="width:25px; margin-right: -12px;" class="card-img-top" src="../../imagens/edit_icon.png" alt=""> <span class="glyphicon glyphicon-pencil"></span></a></td>';                                                    
+                    grid = grid + '<td onClick="inativaAtividade(' + atividades.cdEvento + ',' + atividades.cdAtividade + ')"><a  href="javascript:void(0);"> <img title="Editar atividade" style="width:25px; margin-right: -12px;" class="card-img-top" src="../../imagens/delete_icon.png" alt=""> <span class="glyphicon glyphicon-pencil"></span></a></td>';                                                    
+                }
+                else if(atividades.cdPerfil = 2){
+                    grid = grid + '<td onClick="editarAtividade(' + atividades.cdEvento + ',' + atividades.cdAtividade + ',\'' + atividades.nmAtividade + '\',\'' + atividades.dsAtividade + '\',\'' + atividades.dtAtividadeInicio + '\',\''  + atividades.dtAtividadeTermino + '\',\'' + atividades.hrInicioAtividade + '\',\''  + atividades.hrTerminoAtividade  +'\')"><a  href="javascript:void(0);"> <img title="Editar atividade" style="width:25px; margin-right: -12px;" class="card-img-top" src="../../imagens/edit_icon.png" alt=""> <span class="glyphicon glyphicon-pencil"></span></a></td>';                                                    
+                    grid = grid + '<td></td>';                                                    
+                }
+                
                 grid = grid + "</tr>";
 
             }
@@ -449,6 +469,49 @@ function carregarAtividades(cdEvento) {
     });
 
 }
+
+function inativaEvento(cdEvento) {
+    $.ajax({
+        type: "POST",
+        dataType: "text",
+        data: {          
+          action: "inativaevento",
+          cdEvento: cdEvento
+        },
+  
+        url: "../controller/MeusEventosController.php",
+  
+        //Se der tudo ok no envio...
+        success: function (dados) {                        
+            jbkrAlert.sucesso('Evento', 'Evento excluido com sucesso.');
+            carregaEventos();
+        }
+    });
+
+}
+
+function inativaAtividade(cdEvento, cdAtividade) {
+    $.ajax({
+        type: "POST",
+        dataType: "text",
+        data: {          
+          action: "inativaatividade",
+          cdEvento: cdEvento,
+          cdAtividade: cdAtividade
+        },
+  
+        url: "../controller/MeusEventosController.php",
+  
+        //Se der tudo ok no envio...
+        success: function (dados) {                        
+            jbkrAlert.sucesso('Atividade', 'Atividade excluida com sucesso.');            
+            carregarAtividades(cdEvento);
+        }
+    });
+
+}
+
+
 
 function editarAtividade(cdEvento, cdAtividade, nmAtividade, dsAtividade, dtAtividadeInicio, dtAtividadeTermino, hrInicioAtividade, hrTerminoAtividade) {
 

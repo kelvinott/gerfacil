@@ -48,7 +48,8 @@ class PaginaInicialPersistencia   {
                                                             WHERE usu2.cdUsuario =  " . $codigo . ")
                                     AND eve2.cdEstado = (SELECT usu3.cdEstado
                                                             FROM tbusuarios usu3
-                                                        WHERE usu3.cdUsuario = " . $codigo . ")) qtdPaginacao
+                                                        WHERE usu3.cdUsuario = " . $codigo . ")
+                                    AND eve2.idAtivo = 1) qtdPaginacao
                             FROM (SELECT eve.nmImagem nmImagem
                                             ,eve.nmEvento nmEvento
                                             ,eve.dsEvento dsEvento
@@ -62,7 +63,8 @@ class PaginaInicialPersistencia   {
                                                             WHERE usu.cdUsuario =  " . $codigo . ")
                                         AND eve.cdEstado = (SELECT usu.cdEstado
                                                                 FROM tbusuarios usu
-                                                            WHERE usu.cdUsuario = " . $codigo . ")                        
+                                                            WHERE usu.cdUsuario = " . $codigo . ")   
+                                        AND eve.idAtivo = 1                     
                                         ORDER BY eve.dtInicio) dados
                             WHERE (dados.row_number >=" . $inicio. " AND dados.row_number <= " . $fim . ")";
                     
@@ -80,7 +82,8 @@ class PaginaInicialPersistencia   {
                                                             WHERE UPPER(cid.nmCidade) = UPPER('". $cidade ."'))
                                         AND eve2.cdEstado = (SELECT est.cdEstado
                                                                 FROM tbestado est
-                                                            WHERE UPPER(est.nmEstado) = UPPER('". $estado ."'))) qtdPaginacao
+                                                            WHERE UPPER(est.nmEstado) = UPPER('". $estado ."'))
+                                        AND eve2.idAtivo = 1) qtdPaginacao
                                 FROM ( SELECT eve.nmImagem nmImagem
                                                 ,eve.nmEvento nmEvento
                                                 ,eve.dsEvento dsEvento
@@ -95,6 +98,7 @@ class PaginaInicialPersistencia   {
                                         " AND eve.cdEstado = (SELECT est.cdEstado
                                                                 FROM tbestado est
                                                                 WHERE UPPER(est.nmEstado) = UPPER('" . $estado . "'))
+                                          AND eve.idAtivo = 1                       
                                         ORDER BY eve.dtInicio) dados
                                 WHERE (dados.row_number >=" . $inicio. " AND dados.row_number <= " . $fim . ")";			 			 			                        
                 
@@ -117,10 +121,11 @@ class PaginaInicialPersistencia   {
                                     ON cid2.cdCidade = eve2.cdCidade
                                 JOIN tbcategorias cat2
                                     ON cat2.cdCategoria = eve2.cdCategoria 
-                                WHERE upper(eve2.nmEvento) like upper('%" . $pesquisar . "%')
+                                WHERE (upper(eve2.nmEvento) like upper('%" . $pesquisar . "%')
                                     OR upper(est2.nmEstado) like upper('%" . $pesquisar . "%')
                                     OR upper(cid2.nmCidade) like upper('%" . $pesquisar . "%')
-                                    OR upper(cat2.dsCategoria) like upper('%" . $pesquisar . "%')) qtdPaginacao      
+                                    OR upper(cat2.dsCategoria) like upper('%" . $pesquisar . "%'))
+                                  AND eve2.idAtivo = 1) qtdPaginacao      
                         FROM (SELECT eve.nmImagem nmImagem
                                     ,eve.nmEvento nmEvento
                                     ,eve.dsEvento dsEvento
@@ -138,10 +143,11 @@ class PaginaInicialPersistencia   {
                                 JOIN tbcategorias cat
                                     ON cat.cdCategoria = eve.cdCategoria 
                                     ,(SELECT @row_number := 0) r
-                                WHERE upper(eve.nmEvento) like upper('%" . $pesquisar . "%')
+                                WHERE (upper(eve.nmEvento) like upper('%" . $pesquisar . "%')
                                     OR upper(est.nmEstado) like upper('%" . $pesquisar . "%')
                                     OR upper(cid.nmCidade) like upper('%" . $pesquisar . "%')
-                                    OR upper(cat.dsCategoria) like upper('%" . $pesquisar . "%')                         
+                                    OR upper(cat.dsCategoria) like upper('%" . $pesquisar . "%'))
+                                  AND eve.idAtivo = 1                         
                                 ORDER BY eve.dtInicio) dados
                             WHERE (dados.row_number >=" . $inicio. " AND dados.row_number <= " . $fim . ")";
 
@@ -158,7 +164,8 @@ class PaginaInicialPersistencia   {
                                     FROM tbeventos eve2
                                 WHERE eve2.cdEstado = (SELECT est.cdEstado
                                                             FROM tbestado est
-                                                        WHERE UPPER(est.nmEstado) = UPPER('". $estado ."'))) qtdPaginacao
+                                                        WHERE UPPER(est.nmEstado) = UPPER('". $estado ."'))
+                                AND eve2.idAtivo = 1) qtdPaginacao
                             FROM ( SELECT eve.nmImagem nmImagem
                                             ,eve.nmEvento nmEvento
                                             ,eve.dsEvento dsEvento
@@ -170,6 +177,7 @@ class PaginaInicialPersistencia   {
                                     WHERE eve.cdEstado = (SELECT est.cdEstado
                                                             FROM tbestado est
                                                             WHERE UPPER(est.nmEstado) = UPPER('" . $estado . "'))
+                                      AND eve.idAtivo = 1
                                     ORDER BY eve.dtInicio) dados
                             WHERE (dados.row_number >=" . $inicio. " AND dados.row_number <= " . $fim . ")";
             } else {
@@ -180,7 +188,8 @@ class PaginaInicialPersistencia   {
                                 ,dados.cdEvento
                                 ,dados.row_number
                                 ,(SELECT count(1)
-                                    FROM tbeventos eve2) qtdPaginacao
+                                    FROM tbeventos eve2
+                                   WHERE eve2.idAtivo = 1) qtdPaginacao
                             FROM ( SELECT eve.nmImagem nmImagem
                                             ,eve.nmEvento nmEvento
                                             ,eve.dsEvento dsEvento
@@ -189,6 +198,7 @@ class PaginaInicialPersistencia   {
                                             ,(@row_number := @row_number + 1) row_number
                                         FROM tbeventos eve    
                                             ,(SELECT @row_number := 0) r                                                          
+                                       WHERE eve.idAtivo = 1
                                     ORDER BY eve.dtInicio) dados
                             WHERE (dados.row_number >=" . $inicio. " AND dados.row_number <= " . $fim . ")";
             }
