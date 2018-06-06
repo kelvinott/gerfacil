@@ -284,7 +284,7 @@ class MeusEventosPersistencia   {
         $cdEvento = $this->getModel()->getEvento();
         $cdAtividade = $this->getModel()->getAtividade();
         
-        $sSql = "UPDATE tbAtividades ati
+        $sSql = "UPDATE tbatividades ati
                     SET ati.idAtivo = 0                       
                   WHERE ati.cdEvento = " . $cdEvento . "
                     AND ati.cdAtividade = " . $cdAtividade;               
