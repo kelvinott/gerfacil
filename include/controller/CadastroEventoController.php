@@ -15,6 +15,8 @@ if(!isset($_POST["action"])) {
     
     $im = imagecreatefromjpeg($_FILES['imagem']['tmp_name']);
     
+    if(!isset($_FILES['imagem']['tmp_name']))
+        return;
     
     if(imagesx($im) < 1200 || imagesx($im) < 250)        
         echo "Resolução mínima 1200x250";   
@@ -114,18 +116,20 @@ else {
     
             break;
         case 'validainformacoesperfil':
-            $model = new CadastroEventoModel();
             
-            $model->setUsuario($_SESSION["cdUsuario"]);
-            
-            $persistencia = new CadastroEventoPersistencia();
-    
-            $persistencia->setModel($model);
-    
-            $retorno = $persistencia->validaInformacoesPerfil();
-    
-            echo $retorno;        
-    
+            if(isset($_SESSION["cdUsuario"])){
+                $model = new CadastroEventoModel();
+                
+                $model->setUsuario($_SESSION["cdUsuario"]);
+                
+                $persistencia = new CadastroEventoPersistencia();
+        
+                $persistencia->setModel($model);
+        
+                $retorno = $persistencia->validaInformacoesPerfil();
+        
+                echo $retorno;        
+            }
             break;
         case 'buscacategoriadropdown':
             $model = new CadastroEventoModel();

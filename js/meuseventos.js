@@ -175,9 +175,37 @@ $(document).ready(function(){
         });
     
     });
-
+    
+    var progressbox     = $('#progressbox');
+    var progressbar     = $('#progressbar');
+    var statustxt       = $('#statustxt');
+    var submitbutton    = $("#btnAtualizar");
+    var myform          = $("#formulario");
+    var output          = $("#output");
+    var completed       = '0%';
+    
     $("#imagem").change(function () {
-        $('#formulario').ajaxForm({            
+        $('#formulario').ajaxForm({
+            beforeSend: function() { 
+                submitbutton.attr('disabled', '');
+                statustxt.empty();
+                progressbox.slideDown(); //exibe a barra de progresso
+                progressbar.width(completed); //inicia em 0%
+                statustxt.html(completed); //exibe o texto
+                statustxt.css('color','#000'); //define a cor
+            },
+            uploadProgress: function(event, position, total, percentComplete) { 
+                progressbar.width(percentComplete + '%') //atualiza o tamanho da barra
+                statustxt.html(percentComplete + '%'); //atualiza o texto
+                if(percentComplete>50)
+                    {
+                        statustxt.css('color','#fff'); //troca a cor acima dos 50%
+                    }
+            },    
+            complete: function(response) { // quando completar
+                submitbutton.removeAttr('disabled'); //habilita o botão novamente
+                progressbox.slideUp(); // esconde a barra
+            },       
             success: function(dados) {
                 if(dados != "")
                     jbkrAlert.alerta('Alerta!',dados);

@@ -125,6 +125,7 @@ function carregaEventos(pesquisar, metodo){
         pesquisar: pesquisar,
         hidInicio: hidInicio,
         hidFim: hidFim,
+        metodo: metodo,
         action: "buscar"
       },
 

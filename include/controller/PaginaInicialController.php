@@ -57,13 +57,15 @@ switch($_POST["action"]){
 
         $retorno = $persistencia->carregaEventos("");
 
-        if($retorno == "[]") {
-            $retorno = $persistencia->carregaEventos("1"); 
-
+        if(!isset($_POST["metodo"])) {
             if($retorno == "[]") {
-                $retorno = $persistencia->carregaEventos("2"); 
+                $retorno = $persistencia->carregaEventos("1"); 
+
+                if($retorno == "[]") {
+                    $retorno = $persistencia->carregaEventos("2"); 
+                }
             }
-        }
+        }   
 
         echo $retorno;
 

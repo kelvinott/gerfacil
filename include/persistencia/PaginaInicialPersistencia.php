@@ -205,6 +205,7 @@ class PaginaInicialPersistencia   {
 
         }
         
+        
         $resultado = mysqli_query($this->conexao->getConexao(), $sSql);
         
         if (!$resultado) {            

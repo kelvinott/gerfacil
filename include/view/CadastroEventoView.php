@@ -8,7 +8,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <script type="text/javascript" src="../../js/cadastroevento.js"></script>
     
-    
+    <style>
+        #progressbox {
+    border: 1px solid #0099CC;
+    padding: 1px; 
+    position:relative;
+    width:400px;
+    border-radius: 3px;
+    margin: 10px;
+    display:none;
+    text-align:left;
+}
+#progressbar {
+    height:20px;
+    border-radius: 3px;
+    background-color: #003333;
+    width:1%;
+}
+#statustxt {
+    top:3px;
+    left:50%;
+    position:absolute;
+    display:inline-block;
+    color: #000000;
+}
+    </style>
 
 </head>
 <body>
@@ -177,6 +201,19 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                <div id="progressbox">
+                    <div id="progressbar"></div>
+                    <div id="statustxt">0%</div>
+                </div>
+                <div id="output"></div>   
+                </div>
+            </div>
+            
+
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
