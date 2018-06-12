@@ -16,9 +16,8 @@ class Email{
   public function enviaEmail($email, $mensagem, $assunto, $cc, $anexo){
     global $error;
 
-    //require_once("../../lib/PHPMailer/PHPMailerAutoload.php");
-    require_once('C:/xampp/htdocs/gerfacil/trunk/lib/PHPMailer/PHPMailerAutoload.php');
-
+    require_once("../../lib/PHPMailer/PHPMailerAutoload.php");
+    
     define('GUSER', $this->remetente);	// <-- Insira aqui o seu GMail
     define('GPWD', $this->senha);		// <-- Insira aqui a senha do seu GMail
 
