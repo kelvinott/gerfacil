@@ -125,7 +125,7 @@ session_start();
     
       <div style="padding:0px;" class="container border-left border-right event-section bg-white" id="info">
         
-        <div style="display:inline-block;" class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
+        <div style="display:inline-block; max-width: 65.666667%;" class="col-md-8 col-lg-8 col-sm-12 col-xs-12">
           
           
           <div style="display:inline-block; width:50%">
